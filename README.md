@@ -1,16 +1,19 @@
 # sqlsqlsql
+This app show cases 3 main funtions
 
-A new Flutter project.
+## Cache
+To store & get user, pets data for storage
+  - ### sqlite
+    - provides user table and a pet table
+    - user data helps to authenticate them later
+    - pet are stored and feteched against currently logged in user
+  - ### shared preferences
+    - helps to maintain sessions
+## Theme Change
+  - theme setting like system, dark, light for provided for globally
+## Provider
+  - modifing app state from one place & handling important user & pet funtions.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
