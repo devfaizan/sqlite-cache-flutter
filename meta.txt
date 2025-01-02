@@ -1,0 +1,15 @@
+to view sqllite file in shell (will check in vscode too)
+
+connect to device in shell 
+
+adb -s emulator-xxxx shell
+
+go to databases dir in device-explorer
+
+cd data/data/<packagename>/databases
+
+sqlite3
+
+.open filename
+
+sqlquery
