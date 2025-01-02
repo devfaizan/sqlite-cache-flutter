@@ -50,7 +50,6 @@ class _FormScreenState extends State<FormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final petProvider = Provider.of<PetProvider>(context);
     final userFormProvider = Provider.of<UserFormProvider>(context);
     final currentUser = userFormProvider.currentUser;
     final heightContext = MediaQuery.of(context).size.height;
@@ -163,7 +162,6 @@ class _FormScreenState extends State<FormScreen> {
               child: Stack(
                 clipBehavior: Clip.none,
                 alignment: Alignment.topCenter,
-                // Aligns the CircleAvatar in the center at the top
                 children: [
                   DecoratedBox(
                     decoration: BoxDecoration(
@@ -213,7 +211,7 @@ class _FormScreenState extends State<FormScreen> {
                               SizedBox(
                                 height: heightContext / 40,
                               ),
-                          DropdownWidget(
+                              DropdownWidget(
                                 items: ['Cat', 'Parrot', 'Rooster', 'Duck'],
                                 hint: 'Select Type of Your Pet',
                                 label: "Pet Type",
@@ -271,8 +269,7 @@ class _FormScreenState extends State<FormScreen> {
                                           : const Color.fromARGB(
                                               255, 244, 244, 244),
                                     ),
-                                    padding: const EdgeInsets.all(
-                                        8), // Increases the tappable area
+                                    padding: const EdgeInsets.all(8),
                                     child: Icon(
                                       Icons.close_rounded,
                                       color: Theme.of(context).brightness ==
@@ -308,9 +305,7 @@ class _FormScreenState extends State<FormScreen> {
                                   icon: const Icon(
                                       Icons.add_photo_alternate_outlined),
                                   onPressed: () {
-                                    context
-                                        .read<PetProvider>()
-                                        .pickImage();
+                                    context.read<PetProvider>().pickImage();
                                   },
                                 ),
                               ),
@@ -335,11 +330,13 @@ class _FormScreenState extends State<FormScreen> {
                   if (_key.currentState!.validate()) {
                     if (selectedPetType == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Please select a pet type')),
+                        const SnackBar(
+                            content: Text('Please select a pet type')),
                       );
                       return;
                     }
-                    final petProvider = Provider.of<PetProvider>(context, listen: false);
+                    final petProvider =
+                        Provider.of<PetProvider>(context, listen: false);
                     petProvider.submitForm(
                       name: nameController.text,
                       age: int.parse(ageController.text),

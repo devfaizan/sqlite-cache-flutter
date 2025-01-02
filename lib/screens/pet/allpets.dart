@@ -25,33 +25,8 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
   @override
   void initState() {
     super.initState();
-    _fetchCats(); // Fetch cats when screen is initialized
+    _fetchCats();
   }
-
-  // Future<void> _fetchCats() async {
-  //   final prefers = await SharedPreferences.getInstance();
-  //   final int? userId = prefers.getInt("user_id");
-  //
-  //   if (userId != null) {
-  //     final pets = await _databaseHelper.getPetsForUser(userId);
-  //     setState(() {
-  //       _petList = pets;
-  //       _isLoading = false;
-  //     });
-  //   } else {
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //     // Handle case where user ID is not found
-  //   }
-  //
-  //   // final pets =
-  //   //     await _databaseHelper.getPetsForUser(); // Call the function to get cats
-  //   // setState(() {
-  //   //   _petList = pets;
-  //   //   _isLoading = false; // Data loaded
-  //   // });
-  // }
 
   Future<void> _fetchCats() async {
     final userProvider = Provider.of<UserFormProvider>(context, listen: false);
@@ -96,9 +71,7 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                   context,
                   MaterialPageRoute(builder: (context) => FormScreen()),
                 ).then((value) {
-                  if (value == true) {
-                    // _fetchCats(); // Re-fetch the updated list of pets
-                  }
+                  if (value == true) {}
                 });
               },
             ),
@@ -106,8 +79,7 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
         ],
       ),
       body: _isLoading
-          ? const Center(
-              child: CircularProgressIndicator()) // Show loader while fetching
+          ? const Center(child: CircularProgressIndicator())
           : _petList.isEmpty
               ? const Center(child: Text("No pets found"))
               : ListView.builder(
@@ -124,8 +96,6 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return Dialog(
-                                    // backgroundColor: Colors.transparent,
-                                    // Makes the dialog background transparent
                                     child: Container(
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
@@ -133,11 +103,9 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                               'assets/backbackdialog.png'),
                                           fit: BoxFit.cover,
                                         ),
-                                        borderRadius: BorderRadius.circular(
-                                            10), // Optional: Rounded corners
+                                        borderRadius: BorderRadius.circular(10),
                                       ),
                                       padding: EdgeInsets.all(16),
-                                      // Add padding for inner content
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
@@ -149,14 +117,16 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                                   style: TextStyle(
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.bold,
-                                                    color: Colors.white, // Adjust text color for visibility
+                                                    color: Colors.white,
                                                   ),
                                                 ),
                                               ),
                                               Positioned(
-                                                right: 0, // Positions the cross button at the end
+                                                right: 0,
                                                 child: GestureDetector(
-                                                  child: Icon(Icons.close_rounded, color: Colors.white),
+                                                  child: Icon(
+                                                      Icons.close_rounded,
+                                                      color: Colors.white),
                                                   onTap: () {
                                                     Navigator.of(context).pop();
                                                   },

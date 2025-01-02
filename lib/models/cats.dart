@@ -15,7 +15,6 @@ class Pet {
     required this.userId,
   });
 
-  // Convert a Map to a Pet object
   factory Pet.fromMap(Map<String, dynamic> map) {
     return Pet(
       id: map['pet_id'],
@@ -27,7 +26,6 @@ class Pet {
     );
   }
 
-  // Convert a Pet object to a Map
   Map<String, dynamic> toMap() {
     return {
       'pet_id': id,

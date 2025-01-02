@@ -63,9 +63,9 @@ class _MyAppState extends State<MyApp> {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasData && snapshot.data == true) {
-            return const HomeScreen(); // Redirect to HomeScreen if logged in
+            return const HomeScreen();
           } else {
-            return const UserFormScreen(); // Redirect to UserFormScreen otherwise
+            return const UserFormScreen();
           }
         },
       ),

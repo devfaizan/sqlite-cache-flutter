@@ -118,19 +118,7 @@ class DatabaseHelper {
     );
   }
 
-  // Future<List<Map<String, dynamic>>> getAllPets() async {
-  //   final db = await database;
-  //   return await db.query(_tableName); // Fetch all rows from the 'cats' table
-  // }
-
   Future<List<Pet>> getPetsForUser(int userId) async {
-    // final db = await database;
-    // final result = await db.query(
-    //   _tableName,
-    //   where: '$_foreignIdColumn = ?',
-    //   whereArgs: [userId],
-    // );
-    // return result.map((map) => Pet.fromMap(map)).toList();
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(
       'pets',
@@ -138,7 +126,6 @@ class DatabaseHelper {
       whereArgs: [userId],
     );
     debugPrint('Fetched pets: $maps');
-    // Convert the list of maps to a list of Pet objects
     return List<Pet>.from(maps.map((map) => Pet.fromMap(map)));
   }
 }

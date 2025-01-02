@@ -25,7 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserFormProvider>(context);
 
-    // Get the current user data
     final currentUser = userProvider.currentUser;
 
     return Scaffold(
@@ -40,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: Center(
           child: currentUser == null
-              ? const CircularProgressIndicator() // Show a loader until user data is available
+              ? const CircularProgressIndicator()
               : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

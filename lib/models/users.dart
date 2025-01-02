@@ -53,7 +53,7 @@ class User {
       id: id,
       email: email,
       name: name,
-      password: hashPassword(password), // Hash the password here
+      password: hashPassword(password),
       image: image,
     );
   }

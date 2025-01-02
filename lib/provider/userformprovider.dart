@@ -42,7 +42,7 @@ class UserFormProvider extends ChangeNotifier {
     } catch (e) {
       debugPrint('Error picking image: $e');
     } finally {
-      _isLoading = false; // Stop loading
+      _isLoading = false;
       notifyListeners();
     }
   }

@@ -33,7 +33,6 @@ class _UpdateScreenState extends State<UpdateScreen> {
   void initState() {
     super.initState();
 
-    // Initialize controllers and dropdown based on pet (if editing)
     nameController = TextEditingController(text: widget.pet?.name ?? '');
     ageController =
         TextEditingController(text: widget.pet?.age.toString() ?? '');
@@ -173,7 +172,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                     }
 
                     final updatedPet = Pet(
-                      id: widget.pet!.id, // Ensure the ID is passed for updates
+                      id: widget.pet!.id,
                       name: name,
                       age: age,
                       type: selectedPetType!,
@@ -193,7 +192,6 @@ class _UpdateScreenState extends State<UpdateScreen> {
                         ),
                         (route) => false,
                       );
-                      // Navigator.pop(context, true); // Indicate success
                     } catch (e) {
                       print("Update failed: $e");
                       ScaffoldMessenger.of(context).showSnackBar(

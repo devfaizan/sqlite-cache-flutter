@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqlsqlsql/dbhelper.dart';
-// import 'package:sqlsqlsql/models/users.dart';
 import 'package:sqlsqlsql/provider/userformprovider.dart';
 import 'package:sqlsqlsql/utils/validation.dart';
 import 'package:sqlsqlsql/widgets/drawer/drawer.dart';
@@ -44,9 +43,7 @@ class _UserFormScreenState extends State<UserFormScreen> {
         Provider.of<UserFormProvider>(context, listen: false);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        // title: Text('$heightContext'),
-      ),
+      appBar: AppBar(),
       drawer: const AppDrawer(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +67,6 @@ class _UserFormScreenState extends State<UserFormScreen> {
               child: Stack(
                 clipBehavior: Clip.none,
                 alignment: Alignment.topCenter,
-                // Aligns the CircleAvatar in the center at the top
                 children: [
                   DecoratedBox(
                     decoration: BoxDecoration(
@@ -168,8 +164,7 @@ class _UserFormScreenState extends State<UserFormScreen> {
                                           : const Color.fromARGB(
                                               255, 244, 244, 244),
                                     ),
-                                    padding: const EdgeInsets.all(
-                                        8), // Increases the tappable area
+                                    padding: const EdgeInsets.all(8),
                                     child: Icon(
                                       Icons.close_rounded,
                                       color: Theme.of(context).brightness ==
@@ -237,7 +232,6 @@ class _UserFormScreenState extends State<UserFormScreen> {
                       databaseHelper: _databaseHelper,
                       context: context,
                     );
-                    // print('Data $emailController.text, $nameController.text ,$passwordController.text');
                   } else {
                     print("Form validation failed");
                   }

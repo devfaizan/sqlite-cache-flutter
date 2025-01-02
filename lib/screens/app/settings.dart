@@ -70,7 +70,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               // }
                             },
                           ),
-                          onTap: (){
+                          onTap: () {
                             themeProvider.setThemeMode(themeMode);
                             Navigator.of(context).pop();
                           },
