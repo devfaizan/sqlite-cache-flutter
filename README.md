@@ -15,5 +15,5 @@ To store & get user, pets data for storage
   - modifing app state from one place & handling important user & pet funtions.
 
 
-
-
+### This apps uses AI-Generated code
+![1735932185246](https://github.com/user-attachments/assets/b43b8e52-25fc-4bf8-84e9-1de2ae44b9f3)
