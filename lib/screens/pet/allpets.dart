@@ -227,11 +227,17 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                             },
                             child: DecoratedBox(
                               decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage(
-                                        'assets/backbackback.png',
-                                      ))),
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage(
+                                    pet.type.toLowerCase() == 'cat'
+                                        ? 'assets/back-cat.png'
+                                        : pet.type.toLowerCase() == 'parrot'
+                                            ? 'assets/back-parrot.png'
+                                            : 'assets/backbackback.png',
+                                  ),
+                                ),
+                              ),
                               child: ListTile(
                                 leading: CircleAvatar(
                                   radius: 30,
@@ -239,16 +245,8 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                 ),
                                 title: Text(pet.name),
                                 subtitle: Text("Age: ${pet.age}"),
-                                trailing: const Icon(Icons.pets),
                               ),
                             ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10.0),
-                          child: Text(
-                            pet.type,
-                            style: TextStyle(fontSize: 14, color: Colors.grey),
                           ),
                         ),
                       ],
