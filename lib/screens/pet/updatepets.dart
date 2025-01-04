@@ -8,6 +8,7 @@ import 'package:sqlsqlsql/models/cats.dart';
 import 'package:sqlsqlsql/provider/userformprovider.dart';
 import 'package:sqlsqlsql/screens/pet/allpets.dart';
 import 'package:sqlsqlsql/utils/validation.dart';
+import 'package:sqlsqlsql/widgets/drawer/drawer.dart';
 import 'package:sqlsqlsql/widgets/inputdrop.dart';
 import 'package:sqlsqlsql/widgets/inputwidget.dart';
 import 'package:sqlsqlsql/widgets/primarybutton.dart';
@@ -66,8 +67,9 @@ class _UpdateScreenState extends State<UpdateScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text("Update "),
+        title: const Text("Update"),
       ),
+      // drawer: const AppDrawer(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

@@ -73,89 +73,6 @@ class _FormScreenState extends State<FormScreen> {
                   heightContext < 830 ? heightContext / 60 : heightContext / 30,
             ),
           ),
-          // Expanded(
-          //   child: ListView(
-          //     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          //     children: <Widget>[
-          //       Form(
-          //         key: _key,
-          //         child: Column(
-          //           mainAxisAlignment: MainAxisAlignment.center,
-          //           children: [
-          //             ElevatedButton(
-          //               onPressed: () {
-          //                 showImagePicker();
-          //               },
-          //               child: Text("Add Image"),
-          //             ),
-          //             if (imagePath != null) ...[
-          //               Row(
-          //                 mainAxisAlignment: MainAxisAlignment.center,
-          //                 children: [
-          //                   CircleAvatar(
-          //                     radius: 20,
-          //                     backgroundImage: FileImage(File(imagePath!)),
-          //                   ),
-          //                   Flexible(
-          //                     child: Text(imagePath!),
-          //                   ),
-          //                 ],
-          //               ),
-          //             ] else
-          //               Text('No image selected yet.'),
-          //             SizedBox(
-          //               height: 20,
-          //             ),
-          //             InputWidget(
-          //               controller: nameController,
-          //               hint: "Pet Name",
-          //               label: "Enter Your Pet Name",
-          //               preicon: Icons.person,
-          //               iconsize: 25.0,
-          //               validation: validateText,
-          //               action: TextInputAction.next,
-          //             ),
-          //             SizedBox(
-          //               height: heightContext / 40,
-          //             ),
-          //             InputWidget(
-          //               controller: ageController,
-          //               hint: "Pet Age",
-          //               label: "Enter Your Pet Age",
-          //               preicon: Icons.cake,
-          //               iconsize: 25.0,
-          //               keyboard: TextInputType.number,
-          //               validation: validateNumber,
-          //               action: TextInputAction.next,
-          //             ),
-          //             SizedBox(
-          //               height: heightContext / 40,
-          //             ),
-          //             DropdownWidget(
-          //               items: ['Cat', 'Parrot', 'Rooster', 'Duck'],
-          //               hint: 'Select Type of Your Pet',
-          //               label: "Pet Type",
-          //               preicon: Icons.pets,
-          //               iconsize: 25.0,
-          //               onChanged: (value) {
-          //                 setState(() {
-          //                   selectedPetType = value;
-          //                 });
-          //                 print('Selected value: $value');
-          //               },
-          //               validation: (value) {
-          //                 if (value == null || value.isEmpty) {
-          //                   return 'Please select an option';
-          //                 }
-          //                 return null;
-          //               },
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -345,6 +262,8 @@ class _FormScreenState extends State<FormScreen> {
                       context: context,
                       userId: currentUser!.id!,
                     );
+                    nameController.clear();
+                    ageController.clear();
                   } else {
                     print("no gando giri");
                   }

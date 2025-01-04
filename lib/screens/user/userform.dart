@@ -232,6 +232,9 @@ class _UserFormScreenState extends State<UserFormScreen> {
                       databaseHelper: _databaseHelper,
                       context: context,
                     );
+                    emailController.clear();
+                    nameController.clear();
+                    passwordController.clear();
                   } else {
                     print("Form validation failed");
                   }

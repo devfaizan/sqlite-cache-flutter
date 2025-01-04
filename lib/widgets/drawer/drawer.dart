@@ -53,20 +53,23 @@ class _AppDrawerState extends State<AppDrawer> {
               ),
             ),
           ),
+        if (currentUser != null && currentUser.image.isNotEmpty)
+          ListTile(
+            leading: Icon(Icons.pets),
+            title: Text("All Pets"),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const AllPetsScreen()));
+            },
+          ),
         ListTile(
           leading: Icon(Icons.settings),
           title: Text("Settings"),
           onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const SettingScreen()));
-          },
-        ),
-        ListTile(
-          leading: Icon(Icons.pets),
-          title: Text("All Pets"),
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AllPetsScreen()));
           },
         ),
         ListTile(

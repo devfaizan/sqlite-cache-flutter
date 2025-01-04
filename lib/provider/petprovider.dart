@@ -72,12 +72,13 @@ class PetProvider extends ChangeNotifier {
       );
       await databaseHelper.insertPet(newPet);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('User Added')),
+        const SnackBar(content: Text('Pet Added')),
       );
+      clearImagePath();
     } catch (e) {
       debugPrint('Insert Failed: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to add user: ${e.toString()}')),
+        SnackBar(content: Text('Failed to add pet: ${e.toString()}')),
       );
     } finally {
       setLoading(false);

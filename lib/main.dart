@@ -32,10 +32,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    super.initState();
     final userFormProvider =
         Provider.of<UserFormProvider>(context, listen: false);
     _isLoggedIn = _checkSession(userFormProvider);
+    super.initState();
   }
 
   Future<bool> _checkSession(UserFormProvider userFormProvider) async {

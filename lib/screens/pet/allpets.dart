@@ -8,6 +8,7 @@ import 'package:sqlsqlsql/provider/userformprovider.dart';
 import 'package:sqlsqlsql/screens/pet/form.dart';
 import 'package:sqlsqlsql/screens/pet/updatepets.dart';
 import 'package:sqlsqlsql/utils/outputtext.dart';
+import 'package:sqlsqlsql/widgets/drawer/drawer.dart';
 
 class AllPetsScreen extends StatefulWidget {
   const AllPetsScreen({super.key});
@@ -24,8 +25,8 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
 
   @override
   void initState() {
-    super.initState();
     _fetchCats();
+    super.initState();
   }
 
   Future<void> _fetchCats() async {
@@ -78,6 +79,7 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
           ),
         ],
       ),
+      drawer: const AppDrawer(),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _petList.isEmpty

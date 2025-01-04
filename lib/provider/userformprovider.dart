@@ -80,6 +80,7 @@ class UserFormProvider extends ChangeNotifier {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('User Added')),
       );
+      clearImagePath();
     } catch (e) {
       if (e is DatabaseException && e.isUniqueConstraintError()) {
         ScaffoldMessenger.of(context).showSnackBar(
