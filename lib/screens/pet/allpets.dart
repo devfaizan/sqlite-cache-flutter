@@ -119,7 +119,13 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                                   style: TextStyle(
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.bold,
-                                                    color: Colors.white,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.light
+                                                        ? const Color.fromARGB(
+                                                            255, 49, 47, 47)
+                                                        : const Color.fromARGB(
+                                                            255, 255, 255, 255),
                                                   ),
                                                 ),
                                               ),
@@ -175,18 +181,45 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                                 },
                                                 child: Row(
                                                   children: [
-                                                    Icon(Icons.edit,
-                                                        color: Colors.white),
+                                                    Icon(
+                                                      Icons.edit,
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.light
+                                                          ? const Color
+                                                              .fromARGB(
+                                                              255, 49, 47, 47)
+                                                          : const Color
+                                                              .fromARGB(255,
+                                                              255, 255, 255),
+                                                    ),
                                                     SizedBox(width: 10),
-                                                    Text("Edit",
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white)),
+                                                    Text(
+                                                      "Edit",
+                                                      style: TextStyle(
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.light
+                                                            ? const Color
+                                                                .fromARGB(
+                                                                255, 49, 47, 47)
+                                                            : const Color
+                                                                .fromARGB(255,
+                                                                255, 255, 255),
+                                                      ),
+                                                    ),
                                                   ],
                                                 ),
                                                 style: OutlinedButton.styleFrom(
                                                   side: BorderSide(
-                                                      color: Colors.white),
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.light
+                                                        ? const Color.fromARGB(
+                                                            255, 49, 47, 47)
+                                                        : const Color.fromARGB(
+                                                            255, 255, 255, 255),
+                                                  ),
                                                 ),
                                               ),
                                               OutlinedButton(

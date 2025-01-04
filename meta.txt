@@ -13,3 +13,6 @@ sqlite3
 .open filename
 
 sqlquery
+
+theme
+adb shell "cmd uimode night yes"
