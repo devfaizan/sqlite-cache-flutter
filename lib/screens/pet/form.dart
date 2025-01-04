@@ -66,7 +66,11 @@ class _FormScreenState extends State<FormScreen> {
               top: heightContext < 830 ? 0 : heightContext / 20,
             ),
           ),
-          const FormTop(),
+          const FormTop(
+            topText: "Add New Pet Now",
+            topImagePath: 'assets/pets.png',
+            bottomText: 'Fill Pet Info Below',
+          ),
           Padding(
             padding: EdgeInsets.only(
               top:

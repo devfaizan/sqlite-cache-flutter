@@ -2,36 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:sqlsqlsql/utils/outputtext.dart';
 
 class FormTop extends StatelessWidget {
+  final String topText;
+  final String topImagePath;
+  final String bottomText;
   const FormTop({
     super.key,
+    required this.topText,
+    required this.topImagePath,
+    required this.bottomText,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Align(
+        Align(
           alignment: Alignment.center,
           child: Padding(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 20,
               bottom: 10,
             ),
             child: HeadingText(
-              text: "SQLite Operations",
+              text: topText,
             ),
           ),
         ),
         Center(
-          child: Image.asset('assets/sqlite.png'),
+          child: Image.asset(
+            topImagePath,
+          ),
         ),
-        const Center(
+        Center(
           child: Padding(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 10,
               bottom: 10,
             ),
-            child: SubheadingText(text: "Fill the fields listed below"),
+            child: SubheadingText(
+              text: bottomText,
+            ),
           ),
         ),
       ],
