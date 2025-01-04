@@ -6,6 +6,7 @@ import 'package:sqlsqlsql/dbhelper.dart';
 import 'package:sqlsqlsql/models/cats.dart';
 import 'package:sqlsqlsql/provider/userformprovider.dart';
 import 'package:sqlsqlsql/screens/pet/form.dart';
+import 'package:sqlsqlsql/screens/pet/singlepetview.dart';
 import 'package:sqlsqlsql/screens/pet/updatepets.dart';
 import 'package:sqlsqlsql/utils/outputtext.dart';
 import 'package:sqlsqlsql/widgets/drawer/drawer.dart';
@@ -92,6 +93,16 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                       children: [
                         Expanded(
                           child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SinglePetScreen(
+                                    pet: pet,
+                                  ),
+                                ),
+                              );
+                            },
                             onLongPress: () {
                               print("Buchu");
                               showDialog(
