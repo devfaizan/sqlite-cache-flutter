@@ -28,15 +28,6 @@ class _UserProfileState extends State<UserProfile> {
       body: Center(
         child: DecoratedBox(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                colorGreen,
-                colorLightPurple,
-                colorGreenAccent,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomRight,
-            ),
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
