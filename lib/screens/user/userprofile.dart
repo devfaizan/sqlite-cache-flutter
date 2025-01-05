@@ -32,6 +32,11 @@ class _UserProfileState extends State<UserProfile> {
           ),
           child: Column(
             children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+              ),
               Row(
                 children: [
                   Container(
@@ -51,7 +56,7 @@ class _UserProfileState extends State<UserProfile> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: 10,
+                  vertical: 20,
                   horizontal: 10,
                 ),
                 child: Row(
@@ -66,17 +71,38 @@ class _UserProfileState extends State<UserProfile> {
                   ],
                 ),
               ),
-              Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  InkWell(
-                    onTap: () {
+                  OutlinedButton(
+                    onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Buchu")),
+                        SnackBar(
+                          content: Text("Buchu"),
+                        ),
                       );
                     },
-                    child: ListTile(
-                      leading: Icon(Icons.edit),
-                      title: Text('Edit Profile'),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.edit,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 5,
+                          ),
+                        ),
+                        Text(
+                          "Edit",
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 5,
                     ),
                   ),
                 ],
