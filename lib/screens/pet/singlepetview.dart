@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:sqlsqlsql/models/cats.dart";
-import "package:sqlsqlsql/widgets/drawer/drawer.dart";
 
 class SinglePetScreen extends StatefulWidget {
   final Pet pet;
