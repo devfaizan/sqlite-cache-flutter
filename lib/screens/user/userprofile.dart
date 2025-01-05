@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:sqlsqlsql/models/users.dart';
-import 'package:sqlsqlsql/utils/colors.dart';
+import 'package:sqlsqlsql/screens/user/editprofile.dart';
 import 'package:sqlsqlsql/utils/outputtext.dart';
 import 'package:sqlsqlsql/widgets/drawer/drawer.dart';
 
@@ -77,9 +77,11 @@ class _UserProfileState extends State<UserProfile> {
                 children: [
                   OutlinedButton(
                     onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text("Buchu"),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              EditProfileScreen(user: widget.user),
                         ),
                       );
                     },
