@@ -1,0 +1,99 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:sqlsqlsql/models/users.dart';
+import 'package:sqlsqlsql/utils/colors.dart';
+import 'package:sqlsqlsql/utils/outputtext.dart';
+import 'package:sqlsqlsql/widgets/drawer/drawer.dart';
+
+class UserProfile extends StatefulWidget {
+  final User user;
+  const UserProfile({
+    super.key,
+    required this.user,
+  });
+
+  @override
+  State<UserProfile> createState() => _UserProfileState();
+}
+
+class _UserProfileState extends State<UserProfile> {
+  @override
+  Widget build(BuildContext context) {
+    final heightContext = MediaQuery.of(context).size.height;
+    final widthContext = MediaQuery.of(context).size.width;
+    return Scaffold(
+      appBar: AppBar(),
+      drawer: AppDrawer(),
+      body: Center(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                colorGreen,
+                colorLightPurple,
+                colorGreenAccent,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: widthContext,
+                    height: heightContext / 1.8,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: DecorationImage(
+                        image: FileImage(
+                          File(widget.user.image),
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 10,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    NormalText(
+                      text: widget.user.email,
+                    ),
+                    SubheadingText(
+                      text: widget.user.name,
+                    ),
+                  ],
+                ),
+              ),
+              Column(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Buchu")),
+                      );
+                    },
+                    child: ListTile(
+                      leading: Icon(Icons.edit),
+                      title: Text('Edit Profile'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

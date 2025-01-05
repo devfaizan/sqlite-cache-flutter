@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sqlsqlsql/models/users.dart';
 import 'package:sqlsqlsql/provider/userformprovider.dart';
 import 'package:sqlsqlsql/screens/app/settings.dart';
 import 'package:sqlsqlsql/screens/pet/allpets.dart';
 import 'package:sqlsqlsql/screens/user/login.dart';
+import 'package:sqlsqlsql/screens/user/userprofile.dart';
 import 'package:sqlsqlsql/utils/colors.dart';
 import 'package:sqlsqlsql/utils/outputtext.dart';
 
@@ -25,31 +27,43 @@ class _AppDrawerState extends State<AppDrawer> {
         child: ListView(
       children: [
         if (currentUser != null && currentUser.image.isNotEmpty)
-          DrawerHeader(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment(0.8, 1),
-                  colors: <Color>[
-                    colorPurple,
-                    colorGreen,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserProfile(
+                    user: currentUser,
+                  ),
+                ),
+              );
+            },
+            child: DrawerHeader(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment(0.8, 1),
+                    colors: <Color>[
+                      colorPurple,
+                      colorGreen,
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: FileImage(File(currentUser.image)),
+                      radius: 50,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: NormalText(text: currentUser.email),
+                    )
                   ],
                 ),
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    backgroundImage: FileImage(File(currentUser.image)),
-                    radius: 50,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: NormalText(text: currentUser.email),
-                  )
-                ],
               ),
             ),
           ),
