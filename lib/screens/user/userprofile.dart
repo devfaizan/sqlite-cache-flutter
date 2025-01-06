@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:sqlsqlsql/models/users.dart';
 import 'package:sqlsqlsql/screens/user/editprofile.dart';
+import 'package:sqlsqlsql/utils/colors.dart';
 import 'package:sqlsqlsql/utils/outputtext.dart';
 import 'package:sqlsqlsql/widgets/drawer/drawer.dart';
 
@@ -18,12 +19,33 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final heightContext = MediaQuery.of(context).size.height;
     final widthContext = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(),
+      key: _scaffoldKey,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        forceMaterialTransparency: true,
+        iconTheme: IconThemeData(
+          color: colorGreenAccent,
+        ),
+        leading: Container(
+          margin: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: colorGray,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {
+              _scaffoldKey.currentState?.openDrawer();
+            },
+          ),
+        ),
+      ),
       drawer: AppDrawer(),
       body: Center(
         child: DecoratedBox(
@@ -32,11 +54,6 @@ class _UserProfileState extends State<UserProfile> {
           ),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-              ),
               Row(
                 children: [
                   Container(
@@ -48,6 +65,7 @@ class _UserProfileState extends State<UserProfile> {
                         image: FileImage(
                           File(widget.user.image),
                         ),
+                        // opacity: .8,
                         fit: BoxFit.cover,
                       ),
                     ),
