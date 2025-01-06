@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:sqlsqlsql/models/users.dart';
@@ -61,7 +62,7 @@ class _UserProfileState extends State<UserProfile> {
                     children: [
                       Container(
                         width: widthContext,
-                        height: heightContext / 1.8,
+                        height: heightContext / 1.6,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           image: DecorationImage(
@@ -76,34 +77,43 @@ class _UserProfileState extends State<UserProfile> {
                     ],
                   ),
                   Positioned(
-                    bottom: -35,
+                    bottom: -30,
                     left: 35,
                     child: Center(
-                      child: Container(
-                        width: widthContext / 1.2,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 20,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          gradient: LinearGradient(
-                            colors: [
-                              colorLightPurple,
-                              colorGreenAccent,
-                            ],
+                      child: ClipRect(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(
+                            sigmaX: 2.0,
+                            sigmaY: 2.0,
                           ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            NormalText(
-                              text: widget.user.email,
+                          child: Container(
+                            width: widthContext / 1.2,
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 10,
+                              horizontal: 20,
                             ),
-                            SubheadingText(
-                              text: widget.user.name,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.grey.shade200.withOpacity(0.3),
+                              gradient: LinearGradient(
+                                colors: [
+                                  colorLightPurple,
+                                  colorGreenAccent,
+                                ],
+                              ),
                             ),
-                          ],
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                NormalText(
+                                  text: widget.user.email,
+                                ),
+                                SubheadingText(
+                                  text: widget.user.name,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
