@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:sqlsqlsql/dbhelper.dart';
 import 'package:sqlsqlsql/models/cats.dart';
+import 'package:sqlsqlsql/provider/petprovider.dart';
 import 'package:sqlsqlsql/provider/userformprovider.dart';
 import 'package:sqlsqlsql/screens/pet/allpets.dart';
 import 'package:sqlsqlsql/utils/validation.dart';
@@ -47,26 +47,17 @@ class _UpdateScreenState extends State<UpdateScreen> {
     super.dispose();
   }
 
-  Future<void> showImagePicker() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      setState(() {
-        imagePath = pickedFile.path;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserFormProvider>(context);
+    final petProvider = Provider.of<PetProvider>(context);
     final currentUser = userProvider.currentUser;
     final heightContext = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text("Update"),
+        title: const Text("Edit Pet"),
+        centerTitle: true,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -78,18 +69,24 @@ class _UpdateScreenState extends State<UpdateScreen> {
             ),
           ),
           ElevatedButton(
-            onPressed: () {
-              showImagePicker();
+            onPressed: () async {
+              await petProvider.pickImage();
+              setState(() {
+                imagePath = petProvider.imagePath;
+              });
             },
             child: Text("Change Image"),
           ),
-          if (imagePath != null) ...[
-            CircleAvatar(
-              radius: 120,
-              backgroundImage: FileImage(File(imagePath!)),
-            ),
-          ] else
-            Text('No image selected yet.'),
+          Consumer<PetProvider>(
+            builder: (context, petProvider, child) {
+              return CircleAvatar(
+                radius: 120,
+                backgroundImage: petProvider.imagePath.isNotEmpty
+                    ? FileImage(File(petProvider.imagePath))
+                    : FileImage(File(widget.pet!.image)),
+              );
+            },
+          ),
           Padding(
             padding: EdgeInsets.only(
               top: heightContext / 50,
@@ -208,6 +205,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Pet updated successfully!')),
                       );
+                      petProvider.clearImagePath();
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(

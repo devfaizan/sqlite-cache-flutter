@@ -22,7 +22,7 @@ class PetProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void pickImage() async {
+  Future<void> pickImage() async {
     try {
       _isLoading = true;
       notifyListeners();
