@@ -284,13 +284,16 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                   ),
                                 ),
                               ),
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                  radius: 30,
-                                  backgroundImage: FileImage(File(pet.image)),
+                              child: SizedBox(
+                                height: 95,
+                                child: ListTile(
+                                  leading: CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage: FileImage(File(pet.image)),
+                                  ),
+                                  title: Text(pet.name),
+                                  subtitle: Text("Age: ${pet.age}"),
                                 ),
-                                title: Text(pet.name),
-                                subtitle: Text("Age: ${pet.age}"),
                               ),
                             ),
                           ),
