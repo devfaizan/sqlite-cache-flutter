@@ -43,22 +43,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 100,
-                backgroundImage: FileImage(
-                  File(widget.user!.image),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 10,
+            padding: EdgeInsets.only(
+              top: heightContext / 50,
             ),
           ),
           Row(
@@ -71,6 +57,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: Text("Change Image"),
               ),
             ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 120,
+                backgroundImage: FileImage(
+                  File(widget.user!.image),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: heightContext / 50,
+            ),
           ),
           Expanded(
             child: Padding(
@@ -114,8 +116,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
             ),
           ),
-          SizedBox(
-            height: heightContext < 830 ? 10 : 20,
+          Padding(
+            padding: EdgeInsets.only(
+              top: heightContext / 50,
+            ),
           ),
           Column(
             children: [
@@ -129,7 +133,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ),
           Padding(
             padding: EdgeInsets.only(
-              top: heightContext < 830 ? 10 : 30,
+              top: heightContext / 90,
             ),
           ),
         ],

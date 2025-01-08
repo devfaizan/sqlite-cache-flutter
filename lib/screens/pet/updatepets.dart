@@ -68,14 +68,13 @@ class _UpdateScreenState extends State<UpdateScreen> {
       appBar: AppBar(
         title: const Text("Update"),
       ),
-      // drawer: const AppDrawer(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
             padding: EdgeInsets.only(
-              top: heightContext / 10,
+              top: heightContext / 50,
             ),
           ),
           ElevatedButton(
@@ -93,72 +92,95 @@ class _UpdateScreenState extends State<UpdateScreen> {
             Text('No image selected yet.'),
           Padding(
             padding: EdgeInsets.only(
-              top: heightContext / 30,
+              top: heightContext / 50,
             ),
           ),
           Expanded(
-            child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              children: <Widget>[
-                Form(
-                  key: _key,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InputWidget(
-                        controller: nameController,
-                        hint: "Pet Name",
-                        label: "Enter Your Pet Name",
-                        preicon: Icons.person,
-                        iconsize: 25.0,
-                        validation: validateText,
-                        action: TextInputAction.next,
-                      ),
-                      SizedBox(
-                        height: heightContext / 40,
-                      ),
-                      InputWidget(
-                        controller: ageController,
-                        hint: "Pet Age",
-                        label: "Enter Your Pet Age",
-                        preicon: Icons.cake,
-                        iconsize: 25.0,
-                        keyboard: TextInputType.number,
-                        validation: validateNumber,
-                        action: TextInputAction.next,
-                      ),
-                      SizedBox(
-                        height: heightContext / 40,
-                      ),
-                      DropdownWidget(
-                        items: ['Cat', 'Parrot', 'Rooster', 'Duck'],
-                        hint: 'Select Type of Your Pet',
-                        label: "Pet Type",
-                        preicon: Icons.pets,
-                        iconsize: 25.0,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedPetType = value;
-                          });
-                        },
-                        initialValue: selectedPetType,
-                        validation: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please select an option';
-                          }
-                          return null;
-                        },
-                      ),
-                    ],
-                  ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? const Color.fromARGB(255, 244, 244, 244)
+                      : const Color.fromARGB(255, 49, 47, 47),
                 ),
-              ],
+                child: ListView(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20,
+                  ),
+                  children: <Widget>[
+                    SizedBox(
+                      height: heightContext < 830
+                          ? heightContext / 30
+                          : heightContext / 10,
+                    ),
+                    Form(
+                      key: _key,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InputWidget(
+                            controller: nameController,
+                            hint: "Pet Name",
+                            label: "Enter Your Pet Name",
+                            preicon: Icons.person,
+                            iconsize: 25.0,
+                            validation: validateText,
+                            action: TextInputAction.next,
+                          ),
+                          SizedBox(
+                            height: heightContext / 40,
+                          ),
+                          InputWidget(
+                            controller: ageController,
+                            hint: "Pet Age",
+                            label: "Enter Your Pet Age",
+                            preicon: Icons.cake,
+                            iconsize: 25.0,
+                            keyboard: TextInputType.number,
+                            validation: validateNumber,
+                            action: TextInputAction.next,
+                          ),
+                          SizedBox(
+                            height: heightContext / 40,
+                          ),
+                          DropdownWidget(
+                            items: ['Cat', 'Parrot', 'Rooster', 'Duck'],
+                            hint: 'Select Type of Your Pet',
+                            label: "Pet Type",
+                            preicon: Icons.pets,
+                            iconsize: 25.0,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedPetType = value;
+                              });
+                            },
+                            initialValue: selectedPetType,
+                            validation: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please select an option';
+                              }
+                              return null;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: heightContext / 50,
             ),
           ),
           Column(
             children: [
               PrimaryButton(
-                text: "Let's Go",
+                text: "Update",
                 onPressed: () async {
                   if (_key.currentState!.validate()) {
                     final name = nameController.text.trim();
@@ -208,7 +230,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
           ),
           Padding(
             padding: EdgeInsets.only(
-              top: heightContext / 30,
+              top: heightContext / 90,
             ),
           ),
         ],
