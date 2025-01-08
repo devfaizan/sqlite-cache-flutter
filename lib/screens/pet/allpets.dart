@@ -64,6 +64,7 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("All Pets"),
+        centerTitle: true,
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -140,7 +141,7 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                                 children: [
                                                   Center(
                                                     child: Text(
-                                                      "Select An Option",
+                                                      "Edit or Delete ",
                                                       style: TextStyle(
                                                         fontSize: 18,
                                                         fontWeight:
@@ -170,10 +171,6 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                                     ),
                                                   ),
                                                 ],
-                                              ),
-                                              SizedBox(height: 10),
-                                              UnboldSubheadingText(
-                                                text: "Edit or Delete ",
                                               ),
                                               SubheadingText(
                                                 text: pet.name,
