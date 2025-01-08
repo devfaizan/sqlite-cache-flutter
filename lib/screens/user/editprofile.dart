@@ -23,11 +23,13 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController nameController = TextEditingController();
   final _key = GlobalKey<FormState>();
+  String? imagePath;
 
   @override
   void initState() {
     super.initState();
     nameController = TextEditingController(text: widget.user?.name ?? '');
+    imagePath = widget.user?.image;
   }
 
   @override
@@ -51,8 +53,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () {
-                  userFormProvider.pickImage();
+                onPressed: () async {
+                  await userFormProvider.pickImage();
                 },
                 child: Text("Change Image"),
               ),
@@ -61,11 +63,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircleAvatar(
-                radius: 120,
-                backgroundImage: FileImage(
-                  File(widget.user!.image),
-                ),
+              Consumer<UserFormProvider>(
+                builder: (context, userProvider, child) {
+                  return CircleAvatar(
+                    radius: 120,
+                    backgroundImage: userProvider.imagePath.isNotEmpty
+                        ? FileImage(File(userProvider.imagePath))
+                        : FileImage(File(widget.user!.image)),
+                  );
+                },
               ),
             ],
           ),
