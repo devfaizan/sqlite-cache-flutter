@@ -29,6 +29,21 @@ class _SinglePetScreenState extends State<SinglePetScreen> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         forceMaterialTransparency: true,
+        actions: [
+          Container(
+            margin: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: colorGray,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: IconButton(
+              icon: Icon(Icons.favorite_border),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+        ],
         iconTheme: IconThemeData(
           color: colorGreenAccent,
         ),
