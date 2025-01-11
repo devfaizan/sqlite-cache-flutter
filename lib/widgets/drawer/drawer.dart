@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sqlsqlsql/home.dart';
 import 'package:sqlsqlsql/provider/userformprovider.dart';
 import 'package:sqlsqlsql/screens/app/settings.dart';
 import 'package:sqlsqlsql/screens/pet/allpets.dart';
@@ -66,6 +67,16 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
               ),
             ),
+          ),
+        if (currentUser != null)
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text("Home"),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen()));
+            },
           ),
         if (currentUser != null && currentUser.image.isNotEmpty)
           ListTile(
