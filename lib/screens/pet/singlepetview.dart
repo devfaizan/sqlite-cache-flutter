@@ -19,14 +19,32 @@ class SinglePetScreen extends StatefulWidget {
 }
 
 class _SinglePetScreenState extends State<SinglePetScreen> {
+  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final heightContext = MediaQuery.of(context).size.height;
     final widthContext = MediaQuery.of(context).size.width;
     return Scaffold(
+      key: _key,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text(widget.pet.name),
-        centerTitle: true,
+        forceMaterialTransparency: true,
+        iconTheme: IconThemeData(
+          color: colorGreenAccent,
+        ),
+        leading: Container(
+          margin: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: colorGray,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
       ),
       body: Center(
         child: DecoratedBox(
