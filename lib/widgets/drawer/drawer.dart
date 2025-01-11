@@ -28,6 +28,7 @@ class _AppDrawerState extends State<AppDrawer> {
         if (currentUser != null && currentUser.image.isNotEmpty)
           GestureDetector(
             onTap: () {
+              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -71,6 +72,7 @@ class _AppDrawerState extends State<AppDrawer> {
             leading: Icon(Icons.pets),
             title: Text("All Pets"),
             onTap: () {
+              Navigator.pop(context);
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -81,6 +83,7 @@ class _AppDrawerState extends State<AppDrawer> {
           leading: Icon(Icons.settings),
           title: Text("Settings"),
           onTap: () {
+            Navigator.pop(context);
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const SettingScreen()));
           },
@@ -89,6 +92,7 @@ class _AppDrawerState extends State<AppDrawer> {
           leading: currentUser != null ? Icon(Icons.logout) : Icon(Icons.login),
           title: currentUser != null ? Text("Logout") : Text("Login"),
           onTap: () {
+            Navigator.pop(context);
             if (currentUser != null) {
               userProvider.userLogout(context);
               Navigator.pushAndRemoveUntil(
