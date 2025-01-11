@@ -56,7 +56,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text("Edit Pet"),
+        title: Text("Edit ${widget.pet!.name}"),
         centerTitle: true,
       ),
       body: Column(
