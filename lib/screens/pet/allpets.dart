@@ -185,6 +185,7 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                                 children: [
                                                   OutlinedButton(
                                                     onPressed: () {
+                                                      Navigator.pop(context);
                                                       Navigator.push(
                                                         context,
                                                         MaterialPageRoute(
