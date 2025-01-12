@@ -56,7 +56,7 @@ class _UserFormScreenState extends State<UserFormScreen> {
           ),
           const FormTop(
             topText: 'Make an Offline Account',
-            topImagePath: 'assets/user.png',
+            topImagePath: 'assets/users.png',
             bottomText: 'Fill Below Fields to Make an Account',
           ),
           Padding(

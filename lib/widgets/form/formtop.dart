@@ -14,6 +14,7 @@ class FormTop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final heightContext = MediaQuery.of(context).size.height;
     return Column(
       children: [
         Align(
@@ -23,9 +24,11 @@ class FormTop extends StatelessWidget {
               top: 20,
               bottom: 10,
             ),
-            child: HeadingText(
-              text: topText,
-            ),
+            child: heightContext < 830
+                ? SubheadingText(text: topText)
+                : HeadingText(
+                    text: topText,
+                  ),
           ),
         ),
         Center(
@@ -39,9 +42,11 @@ class FormTop extends StatelessWidget {
               top: 10,
               bottom: 10,
             ),
-            child: SubheadingText(
-              text: bottomText,
-            ),
+            child: heightContext < 830
+                ? NormalText(
+                    text: bottomText,
+                  )
+                : SubheadingText(text: bottomText),
           ),
         ),
       ],
