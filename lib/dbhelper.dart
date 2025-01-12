@@ -20,6 +20,7 @@ class DatabaseHelper {
   final String _ageColumn = "pet_age";
   final String _typeColumn = "pet_type";
   final String _imageColumn = "pet_image";
+  final String _isFav = "pet_fav";
   final String _foreignIdColumn = "userid";
 
   static Database? _database;
@@ -40,7 +41,7 @@ class DatabaseHelper {
         await db.execute(
             'CREATE TABLE $_userTableName($_userIdColumn INTEGER PRIMARY KEY,$_userEmailColumn TEXT NOT NULL UNIQUE,$_userNameColumn TEXT NOT NULL,$_userPassColumn TEXT NOT NULL,$_userImageColumn TEXT)');
         await db.execute(
-            'CREATE TABLE $_tableName($_idColumn INTEGER PRIMARY KEY, $_nameColumn TEXT NOT NULL, $_ageColumn INTEGER NOT NULL, $_typeColumn TEXT NOT NULL,$_imageColumn TEXT,$_foreignIdColumn INTEGER NOT NULL,FOREIGN KEY($_foreignIdColumn) REFERENCES $_userTableName($_userIdColumn) ON DELETE CASCADE)');
+            'CREATE TABLE $_tableName($_idColumn INTEGER PRIMARY KEY, $_nameColumn TEXT NOT NULL, $_ageColumn INTEGER NOT NULL, $_typeColumn TEXT NOT NULL,$_imageColumn TEXT,$_isFav INTEGER NOT NULL DEFAULT 0,$_foreignIdColumn INTEGER NOT NULL,FOREIGN KEY($_foreignIdColumn) REFERENCES $_userTableName($_userIdColumn) ON DELETE CASCADE)');
       },
       version: 1,
     );
@@ -124,6 +125,27 @@ class DatabaseHelper {
       'pets',
       where: 'userid = ?',
       whereArgs: [userId],
+    );
+    debugPrint('Fetched pets: $maps');
+    return List<Pet>.from(maps.map((map) => Pet.fromMap(map)));
+  }
+
+  Future<void> updatePetFavStatus(int petId, int userId, int isFav) async {
+    final db = await database;
+    await db.update(
+      _tableName,
+      {_isFav: isFav},
+      where: '$_idColumn = ? AND $_foreignIdColumn = ?',
+      whereArgs: [petId, userId],
+    );
+  }
+
+  Future<List<Pet>> getFavPet(int userId) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      _tableName,
+      where: '$_foreignIdColumn = ? AND $_isFav = ?',
+      whereArgs: [userId, 1],
     );
     debugPrint('Fetched pets: $maps');
     return List<Pet>.from(maps.map((map) => Pet.fromMap(map)));

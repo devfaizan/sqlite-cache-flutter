@@ -2,7 +2,11 @@ import "dart:io";
 import "dart:ui";
 
 import "package:flutter/material.dart";
+import "package:provider/provider.dart";
+import "package:sqlsqlsql/dbhelper.dart";
 import "package:sqlsqlsql/models/cats.dart";
+import "package:sqlsqlsql/provider/petprovider.dart";
+import "package:sqlsqlsql/provider/userformprovider.dart";
 import "package:sqlsqlsql/screens/pet/updatepets.dart";
 import "package:sqlsqlsql/utils/colors.dart";
 import "package:sqlsqlsql/utils/outputtext.dart";
@@ -19,29 +23,43 @@ class SinglePetScreen extends StatefulWidget {
 }
 
 class _SinglePetScreenState extends State<SinglePetScreen> {
+  final DatabaseHelper _databaseHelper = DatabaseHelper.instance;
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final heightContext = MediaQuery.of(context).size.height;
     final widthContext = MediaQuery.of(context).size.width;
+    final userFormProvider =
+        Provider.of<UserFormProvider>(context, listen: false);
+    final currentUser = userFormProvider.currentUser;
     return Scaffold(
       key: _key,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         forceMaterialTransparency: true,
         actions: [
-          Container(
-            margin: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: colorGray,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: IconButton(
-              icon: Icon(Icons.favorite_border),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
+          Consumer<PetProvider>(
+            builder: (context, petProvider, child) {
+              return Container(
+                margin: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: colorGray,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: IconButton(
+                  icon: Icon(
+                    widget.pet.fav == 1
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    color: widget.pet.fav == 1 ? Colors.red : Colors.white,
+                  ),
+                  onPressed: () async {
+                    await petProvider.toggleFavoriteStatus(
+                        widget.pet, currentUser!, _databaseHelper, context);
+                  },
+                ),
+              );
+            },
           ),
         ],
         iconTheme: IconThemeData(

@@ -5,6 +5,7 @@ class Pet {
   final String type;
   final String image;
   final int userId;
+  int fav;
 
   Pet({
     this.id,
@@ -13,6 +14,7 @@ class Pet {
     required this.type,
     required this.image,
     required this.userId,
+    this.fav = 0,
   });
 
   factory Pet.fromMap(Map<String, dynamic> map) {
@@ -23,6 +25,7 @@ class Pet {
       type: map['pet_type'],
       image: map['pet_image'],
       userId: map['userid'],
+      fav: map['pet_fav'],
     );
   }
 
@@ -34,6 +37,7 @@ class Pet {
       'pet_type': type,
       'pet_image': image,
       'userid': userId,
+      'pet_fav': fav,
     };
   }
 }

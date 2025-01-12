@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:sqlsqlsql/models/users.dart';
 import '../dbhelper.dart';
 import '../models/cats.dart';
 
@@ -82,6 +82,28 @@ class PetProvider extends ChangeNotifier {
       );
     } finally {
       setLoading(false);
+    }
+  }
+
+  Future<void> toggleFavoriteStatus(
+    Pet pet,
+    User user,
+    DatabaseHelper databaseHelper,
+    BuildContext context,
+  ) async {
+    final newFavStatus = pet.fav == 0 ? 1 : 0;
+    try {
+      await databaseHelper.updatePetFavStatus(pet.id!, user.id!, newFavStatus);
+      pet.fav = newFavStatus;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Pet Fav')),
+      );
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Failed to update favorite status: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to fav: ${e.toString()}')),
+      );
     }
   }
 }
