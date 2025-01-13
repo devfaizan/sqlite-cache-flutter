@@ -7,10 +7,13 @@ import '../models/cats.dart';
 class PetProvider extends ChangeNotifier {
   String _imagePath = "";
   bool _isLoading = false;
+  Pet? _favoritePet; // Holds the single favorite pet
 
   String get imagePath => _imagePath;
 
   bool get isLoading => _isLoading;
+
+  Pet? get favoritePet => _favoritePet;
 
   void setImagePath(String path) {
     _imagePath = path;
@@ -104,6 +107,23 @@ class PetProvider extends ChangeNotifier {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to fav: ${e.toString()}')),
       );
+    }
+  }
+
+  Future<void> getSingleFavPet({
+    required int userId,
+    required DatabaseHelper databaseHelper,
+  }) async {
+    try {
+      setLoading(true);
+      final pet = await databaseHelper.getSingleFavPet(userId: userId);
+      _favoritePet = pet; // Assign the single Pet object
+    } catch (e) {
+      debugPrint('Error fetching favorite pet: $e');
+      _favoritePet = null;
+    } finally {
+      setLoading(false);
+      notifyListeners();
     }
   }
 }

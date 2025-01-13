@@ -140,14 +140,17 @@ class DatabaseHelper {
     );
   }
 
-  Future<List<Pet>> getFavPet(int userId) async {
+  Future<Pet?> getSingleFavPet({required int userId}) async {
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query(
-      _tableName,
-      where: '$_foreignIdColumn = ? AND $_isFav = ?',
+    final result = await db.query(
+      'pets',
+      where: 'userid = ? AND pet_fav = ?',
       whereArgs: [userId, 1],
+      limit: 1,
     );
-    debugPrint('Fetched pets: $maps');
-    return List<Pet>.from(maps.map((map) => Pet.fromMap(map)));
+    if (result.isNotEmpty) {
+      return Pet.fromMap(result.first);
+    }
+    return null; // No favorite pet found
   }
 }
