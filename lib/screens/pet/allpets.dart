@@ -10,9 +10,7 @@ import 'package:sqlsqlsql/screens/pet/singlepetview.dart';
 import 'package:sqlsqlsql/screens/pet/updatepets.dart';
 import 'package:sqlsqlsql/utils/colors.dart';
 import 'package:sqlsqlsql/utils/outputtext.dart';
-import 'package:sqlsqlsql/utils/validation.dart';
 import 'package:sqlsqlsql/widgets/drawer/drawer.dart';
-import 'package:sqlsqlsql/widgets/inputwidget.dart';
 
 class AllPetsScreen extends StatefulWidget {
   const AllPetsScreen({super.key});
@@ -23,64 +21,15 @@ class AllPetsScreen extends StatefulWidget {
 
 class _AllPetsScreenState extends State<AllPetsScreen> {
   List<Pet> _petList = [];
-  List<Pet> _filteredPetList = [];
   bool _isLoading = true;
 
   final DatabaseHelper _databaseHelper = DatabaseHelper.instance;
-  final TextEditingController _searchController = TextEditingController();
-  String _searchQuery = '';
 
   @override
   void initState() {
     _fetchCats();
     super.initState();
-    _searchController.addListener(_onSearchChanged);
   }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
-  void _onSearchChanged() {
-    setState(() {
-      _searchQuery = _searchController.text.toLowerCase();
-      _filteredPetList = _petList
-          .where((pet) =>
-              pet.name.toLowerCase().contains(_searchQuery) ||
-              pet.type.toLowerCase().contains(_searchQuery))
-          .toList();
-    });
-  }
-
-  // Future<void> _fetchCats() async {
-  //   final userProvider = Provider.of<UserFormProvider>(context, listen: false);
-  //   if (userProvider.currentUser == null) {
-  //     setState(() => _isLoading = false);
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(content: Text('No user ID found')),
-  //     );
-  //     return;
-  //   }
-  //   try {
-  //     final userId = userProvider.currentUser!.id!;
-  //     print("Fetching pets for user ID: $userId");
-
-  //     final pets = await _databaseHelper.getPetsForUser(userId);
-
-  //     setState(() {
-  //       _petList = pets;
-  //       _isLoading = false;
-  //     });
-  //   } catch (e) {
-  //     setState(() => _isLoading = false);
-  //     print('Error fetching pets: $e');
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text('Failed to fetch pets: $e')),
-  //     );
-  //   }
-  // }
 
   Future<void> _fetchCats() async {
     final userProvider = Provider.of<UserFormProvider>(context, listen: false);
@@ -93,15 +42,17 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
     }
     try {
       final userId = userProvider.currentUser!.id!;
+      print("Fetching pets for user ID: $userId");
+
       final pets = await _databaseHelper.getPetsForUser(userId);
 
       setState(() {
         _petList = pets;
-        _filteredPetList = pets;
         _isLoading = false;
       });
     } catch (e) {
       setState(() => _isLoading = false);
+      print('Error fetching pets: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to fetch pets: $e')),
       );
@@ -114,18 +65,6 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
       appBar: AppBar(
         title: const Text("All Pets"),
         centerTitle: true,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(80),
-          child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-              child: InputWidget(
-                  controller: _searchController,
-                  hint: "Search Pet by Name or Type",
-                  label: "Seach Pet",
-                  preicon: Icons.search,
-                  iconsize: 25,
-                  validation: validateText)),
-        ),
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -146,10 +85,10 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
       drawer: const AppDrawer(),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : _filteredPetList.isEmpty
+          : _petList.isEmpty
               ? const Center(child: Text("No pets found"))
               : ListView.builder(
-                  itemCount: _filteredPetList.length,
+                  itemCount: _petList.length,
                   itemBuilder: (context, index) {
                     final pet = _petList[index];
                     return Row(
