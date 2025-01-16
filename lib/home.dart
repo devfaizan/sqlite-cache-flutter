@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     vertical: 5,
                                                     horizontal: 20,
                                                   ),
-                                                  child: Text("Above The Rest"),
+                                                  child: Text("Tag Line"),
                                                 ),
                                               ),
                                             ],
