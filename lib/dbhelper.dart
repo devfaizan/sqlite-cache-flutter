@@ -82,8 +82,6 @@ class DatabaseHelper {
       [email, hashpassword],
     );
     if (result.isNotEmpty) {
-      print('notempty $email');
-      print('notempty $hashpassword');
       return User.fromMap(result.first);
     }
     return null;

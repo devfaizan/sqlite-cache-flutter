@@ -70,8 +70,8 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
         if (currentUser != null)
           ListTile(
-            leading: Icon(Icons.home),
-            title: Text("Home"),
+            leading: const Icon(Icons.home),
+            title: const Text("Home"),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(context,
@@ -80,8 +80,8 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
         if (currentUser != null && currentUser.image.isNotEmpty)
           ListTile(
-            leading: Icon(Icons.pets),
-            title: Text("All Pets"),
+            leading: const Icon(Icons.pets),
+            title: const Text("All Pets"),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(
@@ -91,8 +91,8 @@ class _AppDrawerState extends State<AppDrawer> {
             },
           ),
         ListTile(
-          leading: Icon(Icons.settings),
-          title: Text("Settings"),
+          leading: const Icon(Icons.settings),
+          title: const Text("Settings"),
           onTap: () {
             Navigator.pop(context);
             Navigator.push(context,
@@ -100,8 +100,11 @@ class _AppDrawerState extends State<AppDrawer> {
           },
         ),
         ListTile(
-          leading: currentUser != null ? Icon(Icons.logout) : Icon(Icons.login),
-          title: currentUser != null ? Text("Logout") : Text("Login"),
+          leading: currentUser != null
+              ? const Icon(Icons.logout)
+              : const Icon(Icons.login),
+          title:
+              currentUser != null ? const Text("Logout") : const Text("Login"),
           onTap: () {
             Navigator.pop(context);
             if (currentUser != null) {
