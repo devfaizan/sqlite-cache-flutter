@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   DecoratedBox(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      gradient: LinearGradient(
+                                      gradient: const LinearGradient(
                                         begin: Alignment.topLeft,
                                         end: Alignment(0.8, 1),
                                         colors: <Color>[
@@ -106,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             size: 50)
                                                         : null,
                                                   ),
-                                                  Positioned(
+                                                  const Positioned(
                                                     top: 0,
                                                     right: -20,
                                                     child: Text(

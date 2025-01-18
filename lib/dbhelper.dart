@@ -86,8 +86,6 @@ class DatabaseHelper {
       print('notempty $hashpassword');
       return User.fromMap(result.first);
     }
-    print('empty');
-    print('empty');
     return null;
   }
 
