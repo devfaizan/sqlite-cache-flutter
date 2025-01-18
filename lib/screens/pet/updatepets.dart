@@ -143,7 +143,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                             height: heightContext / 40,
                           ),
                           DropdownWidget(
-                            items: ['Cat', 'Parrot', 'Rooster', 'Duck'],
+                            items: const ['Cat', 'Parrot', 'Rooster', 'Duck'],
                             hint: 'Select Type of Your Pet',
                             label: "Pet Type",
                             preicon: Icons.pets,

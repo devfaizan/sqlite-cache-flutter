@@ -133,7 +133,12 @@ class _FormScreenState extends State<FormScreen> {
                                 height: heightContext / 40,
                               ),
                               DropdownWidget(
-                                items: ['Cat', 'Parrot', 'Rooster', 'Duck'],
+                                items: const [
+                                  'Cat',
+                                  'Parrot',
+                                  'Rooster',
+                                  'Duck'
+                                ],
                                 hint: 'Select Type of Your Pet',
                                 label: "Pet Type",
                                 preicon: Icons.pets,
@@ -142,7 +147,6 @@ class _FormScreenState extends State<FormScreen> {
                                   setState(() {
                                     selectedPetType = value;
                                   });
-                                  print('Selected value: $value');
                                 },
                                 validation: (value) {
                                   if (value == null || value.isEmpty) {
