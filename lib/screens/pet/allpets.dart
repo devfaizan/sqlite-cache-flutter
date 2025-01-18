@@ -73,7 +73,7 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => FormScreen()),
+                  MaterialPageRoute(builder: (context) => const FormScreen()),
                 ).then((value) {
                   if (value == true) {}
                 });
@@ -125,7 +125,7 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                       return Dialog(
                                         child: Container(
                                           decoration: BoxDecoration(
-                                            image: DecorationImage(
+                                            image: const DecorationImage(
                                               image: AssetImage(
                                                   'assets/backbackdialog.png'),
                                               fit: BoxFit.cover,
@@ -133,7 +133,7 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                           ),
-                                          padding: EdgeInsets.all(16),
+                                          padding: const EdgeInsets.all(16),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
@@ -161,7 +161,7 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                                   Positioned(
                                                     right: 0,
                                                     child: GestureDetector(
-                                                      child: Icon(
+                                                      child: const Icon(
                                                           Icons.close_rounded,
                                                           color: Colors.white),
                                                       onTap: () {
@@ -175,7 +175,7 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                               SubheadingText(
                                                 text: pet.name,
                                               ),
-                                              SizedBox(height: 20),
+                                              const SizedBox(height: 20),
                                               Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
@@ -208,6 +208,20 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                                         }
                                                       });
                                                     },
+                                                    style: OutlinedButton
+                                                        .styleFrom(
+                                                      side: BorderSide(
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.light
+                                                            ? const Color
+                                                                .fromARGB(
+                                                                255, 49, 47, 47)
+                                                            : const Color
+                                                                .fromARGB(255,
+                                                                255, 255, 255),
+                                                      ),
+                                                    ),
                                                     child: Row(
                                                       children: [
                                                         Icon(
@@ -226,7 +240,8 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                                                   255,
                                                                   255),
                                                         ),
-                                                        SizedBox(width: 10),
+                                                        const SizedBox(
+                                                            width: 10),
                                                         Text(
                                                           "Edit",
                                                           style: TextStyle(
@@ -240,29 +255,15 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                                                     49,
                                                                     47,
                                                                     47)
-                                                                : Color
+                                                                : const Color
                                                                     .fromARGB(
-                                                                        255,
-                                                                        241,
-                                                                        232,
-                                                                        232),
+                                                                    255,
+                                                                    241,
+                                                                    232,
+                                                                    232),
                                                           ),
                                                         ),
                                                       ],
-                                                    ),
-                                                    style: OutlinedButton
-                                                        .styleFrom(
-                                                      side: BorderSide(
-                                                        color: Theme.of(context)
-                                                                    .brightness ==
-                                                                Brightness.light
-                                                            ? const Color
-                                                                .fromARGB(
-                                                                255, 49, 47, 47)
-                                                            : const Color
-                                                                .fromARGB(255,
-                                                                255, 255, 255),
-                                                      ),
                                                     ),
                                                   ),
                                                   OutlinedButton(
@@ -272,7 +273,7 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                                       ScaffoldMessenger.of(
                                                               context)
                                                           .showSnackBar(
-                                                        SnackBar(
+                                                        const SnackBar(
                                                           content: Text(
                                                               "Deleted Successfully"),
                                                         ),
@@ -281,7 +282,12 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                                           .pop();
                                                       _fetchCats();
                                                     },
-                                                    child: Row(
+                                                    style: OutlinedButton
+                                                        .styleFrom(
+                                                      side: const BorderSide(
+                                                          color: Colors.red),
+                                                    ),
+                                                    child: const Row(
                                                       children: [
                                                         Icon(Icons.delete,
                                                             color: Colors.red),
@@ -291,11 +297,6 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                                                 color: Colors
                                                                     .red)),
                                                       ],
-                                                    ),
-                                                    style: OutlinedButton
-                                                        .styleFrom(
-                                                      side: BorderSide(
-                                                          color: Colors.red),
                                                     ),
                                                   ),
                                                 ],

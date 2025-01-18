@@ -75,7 +75,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                 imagePath = petProvider.imagePath;
               });
             },
-            child: Text("Change Image"),
+            child: const Text("Change Image"),
           ),
           Consumer<PetProvider>(
             builder: (context, petProvider, child) {
@@ -103,7 +103,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                       : const Color.fromARGB(255, 49, 47, 47),
                 ),
                 child: ListView(
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 20,
                   ),
                   children: <Widget>[
@@ -184,7 +184,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                     final age = int.tryParse(ageController.text) ?? 0;
                     if (selectedPetType == null || name.isEmpty || age == 0) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                        const SnackBar(
                             content:
                                 Text('Please fill in all fields correctly')),
                       );
@@ -203,13 +203,14 @@ class _UpdateScreenState extends State<UpdateScreen> {
                     try {
                       await _databaseHelper.updatePet(updatedPet);
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Pet updated successfully!')),
+                        const SnackBar(
+                            content: Text('Pet updated successfully!')),
                       );
                       petProvider.clearImagePath();
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AllPetsScreen(),
+                          builder: (context) => const AllPetsScreen(),
                         ),
                         (route) => false,
                       );
