@@ -118,7 +118,6 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
                                   );
                                 },
                                 onLongPress: () {
-                                  print("Buchu");
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
