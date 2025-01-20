@@ -250,7 +250,7 @@ class _FormScreenState extends State<FormScreen> {
           Column(
             children: [
               PrimaryButton(
-                text: "Let's Go",
+                text: "Add Pet",
                 onPressed: () async {
                   if (_key.currentState!.validate()) {
                     if (selectedPetType == null) {
