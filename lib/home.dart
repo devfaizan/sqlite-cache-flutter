@@ -97,8 +97,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     radius: 50,
                                                     backgroundImage: favoritePet
                                                             .image.isNotEmpty
-                                                        ? FileImage(File(
-                                                            favoritePet.image))
+                                                        ? FileImage(
+                                                            File(favoritePet
+                                                                .image),
+                                                          )
                                                         : null,
                                                     child: favoritePet
                                                             .image.isEmpty

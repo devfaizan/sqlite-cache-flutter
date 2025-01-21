@@ -191,6 +191,14 @@ class _SinglePetScreenState extends State<SinglePetScreen> {
                   ),
                 ],
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SubheadingText(
+                    text: "Tag Line",
+                  ),
+                ],
+              ),
             ],
           ),
         ),
