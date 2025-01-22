@@ -177,7 +177,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
           Column(
             children: [
               PrimaryButton(
-                text: "Update",
+                text: "Update Pet",
                 onPressed: () async {
                   if (_key.currentState!.validate()) {
                     final name = nameController.text.trim();

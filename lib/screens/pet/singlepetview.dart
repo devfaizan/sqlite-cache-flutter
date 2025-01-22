@@ -179,7 +179,7 @@ class _SinglePetScreenState extends State<SinglePetScreen> {
                           ),
                         ),
                         Text(
-                          "Edit",
+                          "Edit Pet",
                         ),
                       ],
                     ),
