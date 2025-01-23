@@ -191,13 +191,25 @@ class _SinglePetScreenState extends State<SinglePetScreen> {
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SubheadingText(
-                    text: "Tag Line",
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20,
+                  horizontal: 30,
+                ),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                ],
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SubheadingText(
+                        text: "\' Tag Line \'",
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

@@ -95,8 +95,12 @@ class _AppDrawerState extends State<AppDrawer> {
           title: const Text("Settings"),
           onTap: () {
             Navigator.pop(context);
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const SettingScreen()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SettingScreen(),
+              ),
+            );
           },
         ),
         ListTile(
@@ -111,13 +115,17 @@ class _AppDrawerState extends State<AppDrawer> {
               userProvider.userLogout(context);
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
+                MaterialPageRoute(
+                  builder: (context) => const LoginScreen(),
+                ),
                 (route) => false,
               );
             } else {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
+                MaterialPageRoute(
+                  builder: (context) => const LoginScreen(),
+                ),
               );
             }
           },
