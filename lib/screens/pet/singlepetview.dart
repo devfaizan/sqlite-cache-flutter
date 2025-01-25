@@ -126,7 +126,7 @@ class _SinglePetScreenState extends State<SinglePetScreen> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               color: Colors.grey.shade200.withOpacity(0.3),
-                              gradient: LinearGradient(
+                              gradient: const LinearGradient(
                                 colors: [
                                   colorLightPurple,
                                   colorGreenAccent,
@@ -152,7 +152,79 @@ class _SinglePetScreenState extends State<SinglePetScreen> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 30),
+                padding: const EdgeInsets.symmetric(vertical: 20),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 50,
+                  horizontal: 30,
+                ),
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    ClipRect(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(
+                          sigmaX: 10.0,
+                          sigmaY: 10.0,
+                        ),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade200.withOpacity(0.1),
+                            gradient: LinearGradient(
+                              colors: [
+                                colorGray,
+                                colorGreenAccent,
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 10,
+                              horizontal: 15,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Flexible(
+                                  child: SubheadingText(
+                                    text:
+                                        "\' Tag Line as long so it can fill the space \'",
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: -25,
+                      right: 10,
+                      child: ClipRect(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(
+                            sigmaX: 10.0,
+                            sigmaY: 10.0,
+                          ),
+                          child: CustomPaint(
+                            painter: TrianglePainterWithColorAndGradient(
+                              fillColor: Colors.grey.shade200.withOpacity(0.01),
+                              gradient: LinearGradient(
+                                colors: [colorGray, colorGray],
+                              ),
+                              borderColor: Color.fromARGB(255, 177, 177,
+                                  177), // Set the border color here
+                              borderWidth: 2.0, // Set the border width here
+                            ),
+                            size: const Size(30, 25),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -191,35 +263,58 @@ class _SinglePetScreenState extends State<SinglePetScreen> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 20,
-                  horizontal: 30,
-                ),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 5,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SubheadingText(
-                          text: "\' Tag Line \'",
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+class TrianglePainterWithColorAndGradient extends CustomPainter {
+  final Color fillColor;
+  final Gradient gradient;
+  final double borderWidth;
+  final Color borderColor;
+
+  TrianglePainterWithColorAndGradient({
+    required this.fillColor,
+    required this.gradient,
+    required this.borderWidth,
+    required this.borderColor,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Define the triangle path
+    final path = Path()
+      ..moveTo(size.width / 2, 0) // Top point of the triangle
+      ..lineTo(size.width, size.height) // Bottom-right point
+      ..lineTo(0, size.height) // Bottom-left point
+      ..close();
+
+    // Paint for the solid color fill
+
+    // Paint for the gradient
+    final gradientPaint = Paint()
+      ..shader = gradient.createShader(Offset.zero & size);
+    canvas.drawPath(path, gradientPaint);
+
+    final fillPaint = Paint()..color = fillColor;
+    canvas.drawPath(path, fillPaint);
+
+    // Paint for the border
+    final borderPaint = Paint()
+      ..color = borderColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = borderWidth;
+
+    // Draw the border (if borderWidth > 0)
+    if (borderWidth > 0) {
+      canvas.drawPath(path, borderPaint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
