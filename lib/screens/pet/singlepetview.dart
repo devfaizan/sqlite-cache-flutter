@@ -251,7 +251,7 @@ class _SinglePetScreenState extends State<SinglePetScreen> {
                           ),
                         ),
                         Text(
-                          "Edit Pet",
+                          "Edit ${widget.pet.name}",
                         ),
                       ],
                     ),
