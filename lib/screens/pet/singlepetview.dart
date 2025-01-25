@@ -152,7 +152,7 @@ class _SinglePetScreenState extends State<SinglePetScreen> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
+                padding: const EdgeInsets.symmetric(vertical: 15),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
