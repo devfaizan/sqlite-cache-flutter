@@ -24,6 +24,7 @@ class FormScreen extends StatefulWidget {
 class _FormScreenState extends State<FormScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
+  TextEditingController tagLineController = TextEditingController();
   String? selectedPetType;
   final _key = GlobalKey<FormState>();
 
@@ -112,6 +113,18 @@ class _FormScreenState extends State<FormScreen> {
                                 hint: "Pet Name",
                                 label: "Enter Your Pet Name",
                                 preicon: Icons.person,
+                                iconsize: 25.0,
+                                validation: validateText,
+                                action: TextInputAction.next,
+                              ),
+                              SizedBox(
+                                height: heightContext / 40,
+                              ),
+                              InputWidget(
+                                controller: tagLineController,
+                                hint: "Pet Tag Line",
+                                label: "Enter Your Pet Tag Line",
+                                preicon: Icons.cake,
                                 iconsize: 25.0,
                                 validation: validateText,
                                 action: TextInputAction.next,
@@ -264,6 +277,7 @@ class _FormScreenState extends State<FormScreen> {
                         Provider.of<PetProvider>(context, listen: false);
                     petProvider.submitForm(
                       name: nameController.text,
+                      tagline: tagLineController.text,
                       age: int.parse(ageController.text),
                       type: selectedPetType!,
                       databaseHelper: _databaseHelper,
