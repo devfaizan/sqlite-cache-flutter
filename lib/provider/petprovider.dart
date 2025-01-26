@@ -54,6 +54,7 @@ class PetProvider extends ChangeNotifier {
     required String name,
     required int age,
     required String type,
+    required String tagline,
     required DatabaseHelper databaseHelper,
     required BuildContext context,
     required int userId,
@@ -72,6 +73,7 @@ class PetProvider extends ChangeNotifier {
         type: type,
         image: imagePath,
         userId: userId,
+        tagLine: tagline,
       );
       await databaseHelper.insertPet(newPet);
       ScaffoldMessenger.of(context).showSnackBar(
