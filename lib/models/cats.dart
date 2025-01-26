@@ -5,6 +5,7 @@ class Pet {
   final String type;
   final String image;
   final int userId;
+  final String? tagLine;
   int fav;
 
   Pet({
@@ -14,6 +15,7 @@ class Pet {
     required this.type,
     required this.image,
     required this.userId,
+    this.tagLine = '',
     this.fav = 0,
   });
 
@@ -25,6 +27,7 @@ class Pet {
       type: map['pet_type'],
       image: map['pet_image'],
       userId: map['userid'],
+      tagLine: map['tag_line'],
       fav: map['pet_fav'],
     );
   }
@@ -37,6 +40,7 @@ class Pet {
       'pet_type': type,
       'pet_image': image,
       'userid': userId,
+      'tag_line': tagLine,
       'pet_fav': fav,
     };
   }
