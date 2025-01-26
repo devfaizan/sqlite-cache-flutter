@@ -22,6 +22,7 @@ class UpdateScreen extends StatefulWidget {
 
 class _UpdateScreenState extends State<UpdateScreen> {
   TextEditingController nameController = TextEditingController();
+  TextEditingController tagLineController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   String? selectedPetType;
   final _key = GlobalKey<FormState>();
@@ -34,6 +35,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
     super.initState();
 
     nameController = TextEditingController(text: widget.pet?.name ?? '');
+    tagLineController = TextEditingController(text: widget.pet?.tagLine ?? '');
     ageController =
         TextEditingController(text: widget.pet?.age.toString() ?? '');
     selectedPetType = widget.pet?.type;
@@ -130,6 +132,19 @@ class _UpdateScreenState extends State<UpdateScreen> {
                             height: heightContext / 40,
                           ),
                           InputWidget(
+                            controller: tagLineController,
+                            hint: "Pet Tag Line",
+                            label: "Enter Your Pet Tag Line",
+                            preicon: Icons.tag,
+                            iconsize: 25.0,
+                            keyboard: TextInputType.number,
+                            validation: validateText,
+                            action: TextInputAction.next,
+                          ),
+                          SizedBox(
+                            height: heightContext / 40,
+                          ),
+                          InputWidget(
                             controller: ageController,
                             hint: "Pet Age",
                             label: "Enter Your Pet Age",
@@ -181,6 +196,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                 onPressed: () async {
                   if (_key.currentState!.validate()) {
                     final name = nameController.text.trim();
+                    final tagline = tagLineController.text.trim();
                     final age = int.tryParse(ageController.text) ?? 0;
                     if (selectedPetType == null || name.isEmpty || age == 0) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -197,6 +213,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                       age: age,
                       type: selectedPetType!,
                       image: imagePath!,
+                      tagLine: tagline,
                       userId: currentUser!.id!,
                     );
 
