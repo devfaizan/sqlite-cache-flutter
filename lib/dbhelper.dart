@@ -21,6 +21,7 @@ class DatabaseHelper {
   final String _typeColumn = "pet_type";
   final String _imageColumn = "pet_image";
   final String _isFav = "pet_fav";
+  final String _tagLine = "tag_line";
   final String _foreignIdColumn = "userid";
 
   static Database? _database;
@@ -41,7 +42,7 @@ class DatabaseHelper {
         await db.execute(
             'CREATE TABLE $_userTableName($_userIdColumn INTEGER PRIMARY KEY,$_userEmailColumn TEXT NOT NULL UNIQUE,$_userNameColumn TEXT NOT NULL,$_userPassColumn TEXT NOT NULL,$_userImageColumn TEXT)');
         await db.execute(
-            'CREATE TABLE $_tableName($_idColumn INTEGER PRIMARY KEY, $_nameColumn TEXT NOT NULL, $_ageColumn INTEGER NOT NULL, $_typeColumn TEXT NOT NULL,$_imageColumn TEXT,$_isFav INTEGER NOT NULL DEFAULT 0,$_foreignIdColumn INTEGER NOT NULL,FOREIGN KEY($_foreignIdColumn) REFERENCES $_userTableName($_userIdColumn) ON DELETE CASCADE)');
+            'CREATE TABLE $_tableName($_idColumn INTEGER PRIMARY KEY, $_nameColumn TEXT NOT NULL, $_ageColumn INTEGER NOT NULL, $_typeColumn TEXT NOT NULL,$_imageColumn TEXT,$_tagLine TEXT NOT NULL ,$_isFav INTEGER NOT NULL DEFAULT 0,$_foreignIdColumn INTEGER NOT NULL,FOREIGN KEY($_foreignIdColumn) REFERENCES $_userTableName($_userIdColumn) ON DELETE CASCADE)');
       },
       version: 1,
     );
