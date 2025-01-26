@@ -189,8 +189,7 @@ class _SinglePetScreenState extends State<SinglePetScreen> {
                               children: [
                                 Flexible(
                                   child: SubheadingText(
-                                    text:
-                                        "\' Tag Line as long so it can fill the space \'",
+                                    text: "‘‘ ${widget.pet.tagLine} ’’",
                                   ),
                                 ),
                               ],
