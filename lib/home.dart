@@ -68,7 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             ? const NormalText(text: "No favorite pet found.")
                             : Column(
                                 children: [
-                                  const NormalText(text: "Favorite Pet"),
                                   const SizedBox(height: 10),
                                   DecoratedBox(
                                     decoration: BoxDecoration(
@@ -139,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     vertical: 5,
                                                     horizontal: 20,
                                                   ),
-                                                  child: Text("Tag Line"),
+                                                  child: Text("Above The Rest"),
                                                 ),
                                               ),
                                             ],
@@ -166,6 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        tooltip: "Add New Pet",
         onPressed: () {
           Navigator.push(
             context,
@@ -174,7 +174,6 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: const Icon(Icons.add),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
