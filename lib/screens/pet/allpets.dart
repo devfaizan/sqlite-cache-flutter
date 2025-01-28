@@ -69,7 +69,8 @@ class _AllPetsScreenState extends State<AllPetsScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: GestureDetector(
-              child: const Icon(Icons.add),
+              child:
+                  Tooltip(message: "Add New Pet", child: const Icon(Icons.add)),
               onTap: () {
                 Navigator.push(
                   context,
