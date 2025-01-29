@@ -226,7 +226,7 @@ class _UserFormScreenState extends State<UserFormScreen> {
           Column(
             children: [
               PrimaryButton(
-                text: "Let's Go",
+                text: "Register",
                 onPressed: () async {
                   if (_key.currentState!.validate()) {
                     userFormProvider.submitForm(
