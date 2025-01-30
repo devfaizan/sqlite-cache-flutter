@@ -119,8 +119,8 @@ class DatabaseHelper {
   Future<List<Pet>> getPetsForUser(int userId) async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(
-      'pets',
-      where: 'userid = ?',
+      _tableName,
+      where: '$_foreignIdColumn = ?',
       whereArgs: [userId],
     );
     debugPrint('Fetched pets: $maps');
@@ -140,8 +140,8 @@ class DatabaseHelper {
   Future<Pet?> getSingleFavPet({required int userId}) async {
     final db = await database;
     final result = await db.query(
-      'pets',
-      where: 'userid = ? AND pet_fav = ?',
+      _tableName,
+      where: '$_foreignIdColumn = ? AND $_isFav = ?',
       whereArgs: [userId, 1],
       limit: 1,
     );
@@ -149,5 +149,18 @@ class DatabaseHelper {
       return Pet.fromMap(result.first);
     }
     return null; // No favorite pet found
+  }
+
+  Future<List<Pet>> getPetsByType(String type, int userId) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      _tableName,
+      where: '$_typeColumn = ? AND $_foreignIdColumn = ?',
+      whereArgs: [type, userId],
+    );
+
+    return List.generate(maps.length, (i) {
+      return Pet.fromMap(maps[i]);
+    });
   }
 }

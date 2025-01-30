@@ -7,7 +7,7 @@ import '../models/cats.dart';
 class PetProvider extends ChangeNotifier {
   String _imagePath = "";
   bool _isLoading = false;
-  Pet? _favoritePet; // Holds the single favorite pet
+  Pet? _favoritePet;
 
   String get imagePath => _imagePath;
 
