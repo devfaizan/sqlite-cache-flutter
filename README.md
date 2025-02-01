@@ -1,5 +1,5 @@
 # sqlsqlsql
-This app show cases 3 main funtions
+This app show cases 3 main functions
 
 ## Cache
 To store & get user, pets data for storage
