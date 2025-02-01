@@ -8,12 +8,16 @@ class PetProvider extends ChangeNotifier {
   String _imagePath = "";
   bool _isLoading = false;
   Pet? _favoritePet;
+  Map<String, List<Pet>> _petsByType = {}; // Holds pets grouped by type
+  List<Pet> _petsOfSingleType = []; // Holds pets of a single type
 
   String get imagePath => _imagePath;
 
   bool get isLoading => _isLoading;
 
   Pet? get favoritePet => _favoritePet;
+  Map<String, List<Pet>> get petsByType => _petsByType;
+  List<Pet> get petsOfSingleType => _petsOfSingleType;
 
   void setImagePath(String path) {
     _imagePath = path;
@@ -123,6 +127,27 @@ class PetProvider extends ChangeNotifier {
     } catch (e) {
       debugPrint('Error fetching favorite pet: $e');
       _favoritePet = null;
+    } finally {
+      setLoading(false);
+      notifyListeners();
+    }
+  }
+
+  void printPetsOfSingleType() {
+    for (var pet in _petsOfSingleType) {
+      print("Name: ${pet.name}, Age: ${pet.age}");
+    }
+  }
+
+  Future<void> getPetsByType(
+      String type, int userid, DatabaseHelper databaseHelper) async {
+    try {
+      setLoading(true);
+      _petsOfSingleType = await databaseHelper.getPetsByType(type, userid);
+      printPetsOfSingleType();
+    } catch (e) {
+      debugPrint('Error fetching pets by type: $e');
+      _petsOfSingleType = [];
     } finally {
       setLoading(false);
       notifyListeners();
