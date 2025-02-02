@@ -42,6 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
     final userProvider = Provider.of<UserFormProvider>(context);
     final currentUser = userProvider.currentUser;
     final petProvider = Provider.of<PetProvider>(context);
+    final heightContext = MediaQuery.of(context).size.height;
+    final widthContext = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
@@ -188,56 +190,61 @@ class _HomeScreenState extends State<HomeScreen> {
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               child: SizedBox(
-                                height: 200,
+                                height: heightContext / 6.51,
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   itemCount: petofSingleType.length,
                                   itemBuilder: (context, index) {
                                     final pet = petofSingleType[index];
-                                    return Card(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                CircleAvatar(
-                                                  radius: 35,
-                                                  backgroundImage: FileImage(
-                                                    File(pet.image),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Column(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 5),
-                                                  child: Text(
-                                                    pet.name,
-                                                    style: const TextStyle(
-                                                      fontSize: 20,
+                                    return SizedBox(
+                                      width: widthContext / 2.8,
+                                      child: Card(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  CircleAvatar(
+                                                    radius: 35,
+                                                    backgroundImage: FileImage(
+                                                      File(pet.image),
                                                     ),
                                                   ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 12),
-                                                  child: Text(
-                                                    "says \n‘‘ ${pet.tagLine} ’’",
-                                                    style: const TextStyle(
-                                                      fontSize: 12,
+                                                ],
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 5),
+                                                    child: Text(
+                                                      pet.name,
+                                                      style: const TextStyle(
+                                                        fontSize: 20,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 12),
+                                                    child: Flexible(
+                                                      child: Text(
+                                                        "says \n‘‘ ${pet.tagLine} ’’",
+                                                        style: const TextStyle(
+                                                          fontSize: 12,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     );
