@@ -7,6 +7,7 @@ import '../models/cats.dart';
 class PetProvider extends ChangeNotifier {
   String _imagePath = "";
   bool _isLoading = false;
+  bool _isExpanded = false;
   Pet? _favoritePet;
   Map<String, List<Pet>> _petsByType = {}; // Holds pets grouped by type
   List<Pet> _petsOfSingleType = []; // Holds pets of a single type
@@ -15,9 +16,16 @@ class PetProvider extends ChangeNotifier {
 
   bool get isLoading => _isLoading;
 
+  bool get isExpended => _isExpanded;
+
   Pet? get favoritePet => _favoritePet;
   Map<String, List<Pet>> get petsByType => _petsByType;
   List<Pet> get petsOfSingleType => _petsOfSingleType;
+
+  void toggleExpended() {
+    _isExpanded = !_isExpanded;
+    notifyListeners();
+  }
 
   void setImagePath(String path) {
     _imagePath = path;

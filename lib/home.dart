@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ? const CircularProgressIndicator()
               : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: <Widget>[
                     HeadingText(text: "Welcome, ${currentUser.name}!"),
                     const SizedBox(height: 20),
                     Consumer<PetProvider>(
@@ -162,94 +162,92 @@ class _HomeScreenState extends State<HomeScreen> {
                               );
                       },
                     ),
-                    Row(
+                    ExpansionTile(
+                      title: const Text('Cats'),
+                      initiallyExpanded: petProvider.isExpended,
+                      onExpansionChanged: (bool expanded) async {
+                        petProvider.toggleExpended();
+                        await petProvider.getPetsByType(
+                          "Cat",
+                          currentUser.id!,
+                          _databaseHelper,
+                        );
+                        for (var cat in petProvider.petsOfSingleType) {
+                          print("Name: ${cat.name}, Age: ${cat.age}");
+                        } // Toggle the expanded state
+                      },
                       children: [
-                        OutlinedButton(
-                          onPressed: () async {
-                            await petProvider.getPetsByType(
-                              "Cat",
-                              currentUser.id!,
-                              _databaseHelper,
-                            );
-                            for (var cat in petProvider.petsOfSingleType) {
-                              print("Name: ${cat.name}, Age: ${cat.age}");
+                        Consumer<PetProvider>(
+                          builder: (context, petProvider, child) {
+                            if (petProvider.isLoading) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
                             }
-                          },
-                          child: Text("Get Cats"),
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                      child: Consumer<PetProvider>(
-                        builder: (context, petProvider, child) {
-                          if (petProvider.isLoading) {
-                            return const CircularProgressIndicator();
-                          }
-                          final petofSingleType = petProvider.petsOfSingleType;
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 15,
-                            ),
-                            child: GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                              ),
-                              itemCount: petofSingleType.length,
-                              itemBuilder: (context, index) {
-                                final pet = petofSingleType[index];
-                                return Card(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                            final petofSingleType =
+                                petProvider.petsOfSingleType;
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: SizedBox(
+                                height: 200,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: petofSingleType.length,
+                                  itemBuilder: (context, index) {
+                                    final pet = petofSingleType[index];
+                                    return Card(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5),
+                                        child: Column(
                                           children: [
-                                            CircleAvatar(
-                                              radius: 35,
-                                              backgroundImage: FileImage(
-                                                File(pet.image),
-                                              ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                CircleAvatar(
+                                                  radius: 35,
+                                                  backgroundImage: FileImage(
+                                                    File(pet.image),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 5),
+                                                  child: Text(
+                                                    pet.name,
+                                                    style: const TextStyle(
+                                                      fontSize: 20,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 12),
+                                                  child: Text(
+                                                    "says \n‘‘ ${pet.tagLine} ’’",
+                                                    style: const TextStyle(
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
-                                        Column(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                top: 5,
-                                              ),
-                                              child: Text(
-                                                pet.name,
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: 12,
-                                              ),
-                                              child: Text(
-                                                "says \n‘‘ ${pet.tagLine} ’’",
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        },
-                      ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
