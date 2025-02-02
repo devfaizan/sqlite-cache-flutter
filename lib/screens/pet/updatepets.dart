@@ -137,7 +137,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                             label: "Enter Your Pet Tag Line",
                             preicon: Icons.tag,
                             iconsize: 25.0,
-                            keyboard: TextInputType.number,
+                            keyboard: TextInputType.text,
                             validation: validateText,
                             action: TextInputAction.next,
                           ),
