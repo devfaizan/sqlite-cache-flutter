@@ -190,64 +190,95 @@ class _HomeScreenState extends State<HomeScreen> {
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               child: SizedBox(
-                                height: heightContext / 6.51,
+                                // height: heightContext / 6.51,
+                                height: heightContext / 4.6,
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: petofSingleType.length,
+                                  itemCount: petofSingleType.length + 1,
                                   itemBuilder: (context, index) {
-                                    final pet = petofSingleType[index];
-                                    return SizedBox(
-                                      width: widthContext / 2.8,
-                                      child: Card(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  CircleAvatar(
-                                                    radius: 35,
-                                                    backgroundImage: FileImage(
-                                                      File(pet.image),
-                                                    ),
+                                    if(index == petofSingleType.length){
+                                      return SizedBox(
+                                        width: widthContext / 2.0,
+                                        child: Card(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5),
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.arrow_circle_right_outlined, // Use the desired icon
+                                                  size: 40,
+                                                  color: Theme.of(context)
+                                                      .brightness ==
+                                                      Brightness.light
+                                                      ? const Color.fromARGB(
+                                                      255, 49, 47, 47)
+                                                      : const Color.fromARGB(
+                                                      255, 244, 244, 244),
+                                                ),
+                                                const SizedBox(height: 8),
+                                                const Text(
+                                                  "View All Cats", // Use the desired text
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                ],
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 5),
-                                                    child: Text(
-                                                      pet.name,
-                                                      style: const TextStyle(
-                                                        fontSize: 20,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    else{
+                                      final pet = petofSingleType[index];
+                                      return SizedBox(
+                                        // width: widthContext / 2.8,
+                                        width: widthContext / 2.0,
+                                        child: Card(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5),
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                                  children: [
+                                                    CircleAvatar(
+                                                      radius: 35,
+                                                      backgroundImage: FileImage(
+                                                        File(pet.image),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 12),
-                                                    child: Flexible(
+                                                  ],
+                                                ),
+                                                Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                      const EdgeInsets.only(
+                                                          top: 5),
                                                       child: Text(
-                                                        "says \n‘‘ ${pet.tagLine} ’’",
+                                                        pet.name,
                                                         style: const TextStyle(
-                                                          fontSize: 12,
+                                                          fontSize: 20,
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
+                                                    Text(
+                                                      "says \n‘‘ ${pet.tagLine} ’’",
+                                                      style: const TextStyle(
+                                                        fontSize: 12,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    );
+                                      );
+                                    }
                                   },
                                 ),
                               ),
