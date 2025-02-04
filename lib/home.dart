@@ -191,34 +191,38 @@ class _HomeScreenState extends State<HomeScreen> {
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               child: SizedBox(
                                 // height: heightContext / 6.51,
-                                height: heightContext / 4.6,
+                                height: heightContext / 4.4,
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   itemCount: petofSingleType.length + 1,
                                   itemBuilder: (context, index) {
-                                    if(index == petofSingleType.length){
+                                    if (index == petofSingleType.length) {
                                       return SizedBox(
                                         width: widthContext / 2.0,
                                         child: Card(
                                           child: Padding(
                                             padding: const EdgeInsets.all(5),
                                             child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Icon(
-                                                  Icons.arrow_circle_right_outlined, // Use the desired icon
+                                                  Icons
+                                                      .arrow_circle_right_outlined,
+                                                  // Use the desired icon
                                                   size: 40,
                                                   color: Theme.of(context)
-                                                      .brightness ==
-                                                      Brightness.light
+                                                              .brightness ==
+                                                          Brightness.light
                                                       ? const Color.fromARGB(
-                                                      255, 49, 47, 47)
+                                                          255, 49, 47, 47)
                                                       : const Color.fromARGB(
-                                                      255, 244, 244, 244),
+                                                          255, 244, 244, 244),
                                                 ),
                                                 const SizedBox(height: 8),
                                                 const Text(
-                                                  "View All Cats", // Use the desired text
+                                                  "View All Cats",
+                                                  // Use the desired text
                                                   style: TextStyle(
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.bold,
@@ -229,11 +233,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ),
                                       );
-                                    }
-                                    else{
+                                    } else {
                                       final pet = petofSingleType[index];
                                       return SizedBox(
-                                        // width: widthContext / 2.8,
                                         width: widthContext / 2.0,
                                         child: Card(
                                           child: Padding(
@@ -242,33 +244,59 @@ class _HomeScreenState extends State<HomeScreen> {
                                               children: [
                                                 Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     CircleAvatar(
                                                       radius: 35,
-                                                      backgroundImage: FileImage(
+                                                      backgroundImage:
+                                                          FileImage(
                                                         File(pet.image),
                                                       ),
                                                     ),
                                                   ],
                                                 ),
                                                 Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
                                                   children: [
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(top: 5,),
+                                                          child: Text(
+                                                          "${pet.name}",
+                                                            style: TextStyle(
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                     Padding(
                                                       padding:
-                                                      const EdgeInsets.only(
-                                                          top: 5),
-                                                      child: Text(
-                                                        pet.name,
-                                                        style: const TextStyle(
-                                                          fontSize: 20,
-                                                        ),
+                                                          const EdgeInsets.only(
+                                                        left: 15,
                                                       ),
-                                                    ),
-                                                    Text(
-                                                      "says \n‘‘ ${pet.tagLine} ’’",
-                                                      style: const TextStyle(
-                                                        fontSize: 12,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: <Widget>[
+                                                          Flexible(
+                                                            child: Text(
+                                                              "says \n‘‘ ${pet.tagLine} ’’",
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 15,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
                                                   ],
