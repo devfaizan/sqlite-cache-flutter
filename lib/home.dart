@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:sqlsqlsql/dbhelper.dart';
 import 'package:sqlsqlsql/provider/petprovider.dart';
 import 'package:sqlsqlsql/provider/userformprovider.dart';
+import 'package:sqlsqlsql/screens/pet/allpets.dart';
 import 'package:sqlsqlsql/screens/pet/form.dart';
 import 'package:sqlsqlsql/utils/colors.dart';
 import 'package:sqlsqlsql/utils/outputtext.dart';
@@ -199,36 +200,41 @@ class _HomeScreenState extends State<HomeScreen> {
                                     if (index == petofSingleType.length) {
                                       return SizedBox(
                                         width: widthContext / 2.0,
-                                        child: Card(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(5),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons
-                                                      .arrow_circle_right_outlined,
-                                                  // Use the desired icon
-                                                  size: 40,
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.light
-                                                      ? const Color.fromARGB(
-                                                          255, 49, 47, 47)
-                                                      : const Color.fromARGB(
-                                                          255, 244, 244, 244),
-                                                ),
-                                                const SizedBox(height: 8),
-                                                const Text(
-                                                  "View All Cats",
-                                                  // Use the desired text
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
+                                        child: GestureDetector(
+                                          onTap: (){
+                                            Navigator.push(context, MaterialPageRoute(builder: (context)=> const AllPetsScreen()));
+                                          },
+                                          child: Card(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(5),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons
+                                                        .arrow_circle_right_outlined,
+                                                    // Use the desired icon
+                                                    size: 40,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.light
+                                                        ? const Color.fromARGB(
+                                                            255, 49, 47, 47)
+                                                        : const Color.fromARGB(
+                                                            255, 244, 244, 244),
                                                   ),
-                                                ),
-                                              ],
+                                                  const SizedBox(height: 8),
+                                                  const Text(
+                                                    "View All Cats",
+                                                    // Use the desired text
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -265,14 +271,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               .center,
                                                       children: [
                                                         Padding(
-                                                          padding: const EdgeInsets.only(top: 5,),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                            top: 5,
+                                                          ),
                                                           child: Text(
-                                                          "${pet.name}",
+                                                            "${pet.name}",
                                                             style: TextStyle(
-                                                                fontSize: 18,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
                                                           ),
                                                         ),
                                                       ],
