@@ -6,6 +6,7 @@ class HeadingText extends StatelessWidget {
     super.key,
     required this.text,
   });
+
   final String text;
 
   @override
@@ -24,11 +25,37 @@ class HeadingText extends StatelessWidget {
   }
 }
 
+class GradientHeading extends StatelessWidget {
+  const GradientHeading(
+      {required this.text, required this.gradient, super.key});
+
+  final String text;
+  final Gradient gradient;
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      blendMode: BlendMode.srcIn,
+      shaderCallback: (bounds) => gradient.createShader(
+        Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 36,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+}
+
 class SubheadingText extends StatelessWidget {
   const SubheadingText({
     super.key,
     required this.text,
   });
+
   final String text;
 
   @override
@@ -52,6 +79,7 @@ class UnboldSubheadingText extends StatelessWidget {
     super.key,
     required this.text,
   });
+
   final String text;
 
   @override
@@ -74,6 +102,7 @@ class NormalText extends StatelessWidget {
     super.key,
     required this.text,
   });
+
   final String text;
 
   @override

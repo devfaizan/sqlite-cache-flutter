@@ -54,281 +54,292 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: const AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Center(
-          child: currentUser == null
-              ? const CircularProgressIndicator()
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    HeadingText(text: "Welcome, ${currentUser.name}!"),
-                    const SizedBox(height: 20),
-                    Consumer<PetProvider>(
-                      builder: (context, petProvider, child) {
-                        final favoritePet = petProvider.favoritePet;
-                        if (petProvider.isLoading) {
-                          return const CircularProgressIndicator();
-                        }
+        child: currentUser == null
+            ? const CircularProgressIndicator()
+            : Column(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      GradientHeading(
+                        text: "Welcome, ${currentUser.name}!",
+                        gradient: LinearGradient(colors: [
+                          colorGreenAccent,
+                          colorLightPurple,
+                          Colors.blue.shade900,
+                        ]),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Consumer<PetProvider>(
+                    builder: (context, petProvider, child) {
+                      final favoritePet = petProvider.favoritePet;
+                      if (petProvider.isLoading) {
+                        return const CircularProgressIndicator();
+                      }
 
-                        return favoritePet == null
-                            ? const NormalText(text: "No favorite pet found.")
-                            : Column(
-                                children: [
-                                  const SizedBox(height: 10),
-                                  DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      gradient: const LinearGradient(
-                                        begin: Alignment.topLeft,
-                                        end: Alignment(0.8, 1),
-                                        colors: <Color>[
-                                          colorPurple,
-                                          colorGreen,
-                                        ],
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Stack(
-                                                clipBehavior: Clip.none,
-                                                children: [
-                                                  CircleAvatar(
-                                                    radius: 50,
-                                                    backgroundImage: favoritePet
-                                                            .image.isNotEmpty
-                                                        ? FileImage(
-                                                            File(favoritePet
-                                                                .image),
-                                                          )
-                                                        : null,
-                                                    child: favoritePet
-                                                            .image.isEmpty
-                                                        ? const Icon(Icons.pets,
-                                                            size: 50)
-                                                        : null,
-                                                  ),
-                                                  const Positioned(
-                                                    top: 0,
-                                                    right: -20,
-                                                    child: Text(
-                                                      '💯',
-                                                      style: TextStyle(
-                                                        fontSize: 35,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              DecoratedBox(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.light
-                                                      ? const Color.fromARGB(
-                                                          255, 244, 244, 244)
-                                                      : const Color.fromARGB(
-                                                          255, 49, 47, 47),
-                                                ),
-                                                child: const Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                    vertical: 5,
-                                                    horizontal: 20,
-                                                  ),
-                                                  child: Text("Above The Rest"),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              SubheadingText(
-                                                  text: favoritePet.name),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                      return favoritePet == null
+                          ? const NormalText(text: "No favorite pet found.")
+                          : Column(
+                              children: [
+                                const SizedBox(height: 10),
+                                DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    gradient: const LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment(0.8, 1),
+                                      colors: <Color>[
+                                        colorPurple,
+                                        colorGreen,
+                                      ],
                                     ),
                                   ),
-                                ],
-                              );
-                      },
-                    ),
-                    ExpansionTile(
-                      title: const Text('Cats'),
-                      initiallyExpanded: petProvider.isExpended,
-                      onExpansionChanged: (bool expanded) async {
-                        petProvider.toggleExpended();
-                        await petProvider.getPetsByType(
-                          "Cat",
-                          currentUser.id!,
-                          _databaseHelper,
-                        );
-                        for (var cat in petProvider.petsOfSingleType) {
-                          print("Name: ${cat.name}, Age: ${cat.age}");
-                        } // Toggle the expanded state
-                      },
-                      children: [
-                        Consumer<PetProvider>(
-                          builder: (context, petProvider, child) {
-                            if (petProvider.isLoading) {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            }
-                            final petofSingleType =
-                                petProvider.petsOfSingleType;
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 15),
-                              child: SizedBox(
-                                // height: heightContext / 6.51,
-                                height: heightContext / 4.4,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: petofSingleType.length + 1,
-                                  itemBuilder: (context, index) {
-                                    if (index == petofSingleType.length) {
-                                      return SizedBox(
-                                        width: widthContext / 2.0,
-                                        child: GestureDetector(
-                                          onTap: (){
-                                            Navigator.push(context, MaterialPageRoute(builder: (context)=> const AllPetsScreen()));
-                                          },
-                                          child: Card(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Icon(
-                                                    Icons
-                                                        .arrow_circle_right_outlined,
-                                                    // Use the desired icon
-                                                    size: 40,
-                                                    color: Theme.of(context)
-                                                                .brightness ==
-                                                            Brightness.light
-                                                        ? const Color.fromARGB(
-                                                            255, 49, 47, 47)
-                                                        : const Color.fromARGB(
-                                                            255, 244, 244, 244),
-                                                  ),
-                                                  const SizedBox(height: 8),
-                                                  const Text(
-                                                    "View All Cats",
-                                                    // Use the desired text
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Stack(
+                                              clipBehavior: Clip.none,
+                                              children: [
+                                                CircleAvatar(
+                                                  radius: 50,
+                                                  backgroundImage: favoritePet
+                                                          .image.isNotEmpty
+                                                      ? FileImage(
+                                                          File(favoritePet
+                                                              .image),
+                                                        )
+                                                      : null,
+                                                  child: favoritePet
+                                                          .image.isEmpty
+                                                      ? const Icon(Icons.pets,
+                                                          size: 50)
+                                                      : null,
+                                                ),
+                                                const Positioned(
+                                                  top: 0,
+                                                  right: -20,
+                                                  child: Text(
+                                                    '💯',
                                                     style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 35,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
                                                   ),
-                                                ],
+                                                ),
+                                              ],
+                                            ),
+                                            DecoratedBox(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.light
+                                                    ? const Color.fromARGB(
+                                                        255, 244, 244, 244)
+                                                    : const Color.fromARGB(
+                                                        255, 49, 47, 47),
+                                              ),
+                                              child: const Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 5,
+                                                  horizontal: 20,
+                                                ),
+                                                child: Text("Above The Rest"),
                                               ),
                                             ),
-                                          ),
+                                          ],
                                         ),
-                                      );
-                                    } else {
-                                      final pet = petofSingleType[index];
-                                      return SizedBox(
-                                        width: widthContext / 2.0,
+                                        const SizedBox(height: 10),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SubheadingText(
+                                                text: favoritePet.name),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                    },
+                  ),
+                  ExpansionTile(
+                    title: const Text('Cats'),
+                    initiallyExpanded: petProvider.isExpended,
+                    onExpansionChanged: (bool expanded) async {
+                      petProvider.toggleExpended();
+                      await petProvider.getPetsByType(
+                        "Cat",
+                        currentUser.id!,
+                        _databaseHelper,
+                      );
+                      for (var cat in petProvider.petsOfSingleType) {
+                        print("Name: ${cat.name}, Age: ${cat.age}");
+                      } // Toggle the expanded state
+                    },
+                    children: [
+                      Consumer<PetProvider>(
+                        builder: (context, petProvider, child) {
+                          if (petProvider.isLoading) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                          final petofSingleType = petProvider.petsOfSingleType;
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            child: SizedBox(
+                              // height: heightContext / 6.51,
+                              height: heightContext / 4.4,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: petofSingleType.length + 1,
+                                itemBuilder: (context, index) {
+                                  if (index == petofSingleType.length) {
+                                    return SizedBox(
+                                      width: widthContext / 2.0,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const AllPetsScreen()));
+                                        },
                                         child: Card(
                                           child: Padding(
                                             padding: const EdgeInsets.all(5),
                                             child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    CircleAvatar(
-                                                      radius: 35,
-                                                      backgroundImage:
-                                                          FileImage(
-                                                        File(pet.image),
-                                                      ),
-                                                    ),
-                                                  ],
+                                                Icon(
+                                                  Icons
+                                                      .arrow_circle_right_outlined,
+                                                  // Use the desired icon
+                                                  size: 40,
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.light
+                                                      ? const Color.fromARGB(
+                                                          255, 49, 47, 47)
+                                                      : const Color.fromARGB(
+                                                          255, 244, 244, 244),
                                                 ),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                            top: 5,
-                                                          ),
-                                                          child: Text(
-                                                            "${pet.name}",
-                                                            style: TextStyle(
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                        left: 15,
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: <Widget>[
-                                                          Flexible(
-                                                            child: Text(
-                                                              "says \n‘‘ ${pet.tagLine} ’’",
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 15,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
+                                                const SizedBox(height: 8),
+                                                const Text(
+                                                  "View All Cats",
+                                                  // Use the desired text
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                               ],
                                             ),
                                           ),
                                         ),
-                                      );
-                                    }
-                                  },
-                                ),
+                                      ),
+                                    );
+                                  } else {
+                                    final pet = petofSingleType[index];
+                                    return SizedBox(
+                                      width: widthContext / 2.0,
+                                      child: Card(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  CircleAvatar(
+                                                    radius: 35,
+                                                    backgroundImage: FileImage(
+                                                      File(pet.image),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                          top: 5,
+                                                        ),
+                                                        child: Text(
+                                                          "${pet.name}",
+                                                          style: TextStyle(
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      left: 15,
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: <Widget>[
+                                                        Flexible(
+                                                          child: Text(
+                                                            "says \n‘‘ ${pet.tagLine} ’’",
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 15,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
                               ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-        ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: "Add New Pet",
