@@ -59,18 +59,24 @@ class _HomeScreenState extends State<HomeScreen> {
             : Column(
                 // mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      GradientHeading(
-                        text: "Welcome, ${currentUser.name}!",
-                        gradient: LinearGradient(colors: [
-                          colorGreenAccent,
-                          colorLightPurple,
-                          Colors.blue.shade900,
-                        ]),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 5,
+                      horizontal: 2,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        GradientHeading(
+                          text: "Welcome, ${currentUser.name}!",
+                          gradient: LinearGradient(colors: [
+                            colorGreenAccent,
+                            colorLightPurple,
+                            Colors.blue.shade900,
+                          ]),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 20),
                   Consumer<PetProvider>(
