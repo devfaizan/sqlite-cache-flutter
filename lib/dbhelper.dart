@@ -57,7 +57,7 @@ class DatabaseHelper {
     );
   }
 
-  Future<void> updateUser(User user) async {
+  Future<void> updateUser(UpdateUser user) async {
     final db = await database;
     await db.update(
       _userTableName,
