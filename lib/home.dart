@@ -41,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final DatabaseHelper _databaseHelper = DatabaseHelper.instance;
     final userProvider = Provider.of<UserFormProvider>(context);
     final currentUser = userProvider.currentUser;
     final petProvider = Provider.of<PetProvider>(context);
@@ -184,11 +183,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             );
                     },
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 5,
-                    ),
-                    child: Column(
+                  Expanded(
+                    child: ListView(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -210,145 +206,165 @@ class _HomeScreenState extends State<HomeScreen> {
                             }
                             final petofSingleType =
                                 petProvider.petsOfSingleType;
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 15),
-                              child: SizedBox(
-                                // height: heightContext / 6.51,
-                                height: heightContext / 4.4,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: petofSingleType.length + 1,
-                                  itemBuilder: (context, index) {
-                                    if (index == petofSingleType.length) {
-                                      return SizedBox(
-                                        width: widthContext / 2.0,
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const AllPetsScreen()));
-                                          },
-                                          child: Card(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Icon(
-                                                    Icons
-                                                        .arrow_circle_right_outlined,
-                                                    // Use the desired icon
-                                                    size: 40,
-                                                    color: Theme.of(context)
-                                                                .brightness ==
-                                                            Brightness.light
-                                                        ? const Color.fromARGB(
-                                                            255, 49, 47, 47)
-                                                        : const Color.fromARGB(
-                                                            255, 244, 244, 244),
-                                                  ),
-                                                  const SizedBox(height: 8),
-                                                  const Text(
-                                                    "View All Cats",
-                                                    // Use the desired text
-                                                    style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    } else {
-                                      final pet = petofSingleType[index];
-                                      return SizedBox(
-                                        width: widthContext / 2.0,
-                                        child: Card(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(5),
-                                            child: Column(
-                                              children: [
-                                                Row(
+                            if (petofSingleType.isEmpty) {
+                              return const Center(
+                                  child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 15,
+                                  horizontal: 20,
+                                ),
+                                child: NormalText(
+                                  text: "No Cats Found",
+                                ),
+                              ));
+                            } else {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15),
+                                child: SizedBox(
+                                  // height: heightContext / 6.51,
+                                  height: heightContext / 4.4,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: petofSingleType.length + 1,
+                                    itemBuilder: (context, index) {
+                                      if (index == petofSingleType.length) {
+                                        return SizedBox(
+                                          width: widthContext / 2.0,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const AllPetsScreen()));
+                                            },
+                                            child: Card(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5),
+                                                child: Column(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    CircleAvatar(
-                                                      radius: 35,
-                                                      backgroundImage:
-                                                          FileImage(
-                                                        File(pet.image),
+                                                    Icon(
+                                                      Icons
+                                                          .arrow_circle_right_outlined,
+                                                      // Use the desired icon
+                                                      size: 40,
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.light
+                                                          ? const Color
+                                                              .fromARGB(
+                                                              255, 49, 47, 47)
+                                                          : const Color
+                                                              .fromARGB(255,
+                                                              244, 244, 244),
+                                                    ),
+                                                    const SizedBox(height: 8),
+                                                    const Text(
+                                                      "View All Cats",
+                                                      // Use the desired text
+                                                      style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                       ),
                                                     ),
                                                   ],
                                                 ),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                            top: 5,
-                                                          ),
-                                                          child: Text(
-                                                            "${pet.name}",
-                                                            style: TextStyle(
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                          ),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      } else {
+                                        final pet = petofSingleType[index];
+                                        return SizedBox(
+                                          width: widthContext / 2.0,
+                                          child: Card(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(5),
+                                              child: Column(
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      CircleAvatar(
+                                                        radius: 35,
+                                                        backgroundImage:
+                                                            FileImage(
+                                                          File(pet.image),
                                                         ),
-                                                      ],
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                        left: 15,
                                                       ),
-                                                      child: Row(
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Row(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
                                                                 .center,
-                                                        children: <Widget>[
-                                                          Flexible(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                              top: 5,
+                                                            ),
                                                             child: Text(
-                                                              "says \n‘‘ ${pet.tagLine} ’’",
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 15,
+                                                              "${pet.name}",
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
                                                               ),
                                                             ),
                                                           ),
                                                         ],
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                          left: 15,
+                                                        ),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: <Widget>[
+                                                            Flexible(
+                                                              child: Text(
+                                                                "says \n‘‘ ${pet.tagLine} ’’",
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 15,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    }
-                                  },
+                                        );
+                                      }
+                                    },
+                                  ),
                                 ),
-                              ),
-                            );
+                              );
+                            }
                           },
                         ),
                       ],
