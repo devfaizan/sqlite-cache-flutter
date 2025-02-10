@@ -61,9 +61,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 // mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 5,
-                      horizontal: 2,
+                    padding: const EdgeInsets.only(
+                      top: 15,
+                      left: 2,
+                      right: 2,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -92,6 +93,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           : Column(
                               children: [
                                 const SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text("Favorite Pet",style: TextStyle(
+                                      fontWeight: FontWeight.w200,
+                                    ),),
+                                  ],
+                                ),
                                 DecoratedBox(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
