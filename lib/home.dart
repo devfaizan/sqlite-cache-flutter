@@ -71,9 +71,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         GradientHeading(
                           text: "Welcome, ${currentUser.name}!",
                           gradient: LinearGradient(colors: [
-                            colorGreenAccent,
+                            colorGreen,
                             colorLightPurple,
-                            Colors.blue.shade900,
+                            Colors.redAccent,
                           ]),
                         ),
                       ],
