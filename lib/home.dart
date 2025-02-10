@@ -191,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(
-                                  top: 5, left: 8, right: 8),
+                                  top: 10, left: 8, right: 8),
                               child: SubheadingText(
                                 text: "Cats",
                               ),
@@ -222,8 +222,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 15),
                                 child: SizedBox(
-                                  // height: heightContext / 6.51,
-                                  height: heightContext / 4.4,
+                                  height: heightContext < 830
+                                      ? heightContext / 4.4
+                                      : heightContext / 5.8,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     itemCount: petofSingleType.length + 1,
