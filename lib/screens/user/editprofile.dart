@@ -130,7 +130,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           Column(
             children: [
               PrimaryButton(
-                text: "Update",
+                text: "Update Profile",
                 onPressed: () async {},
                 borderRadius: BorderRadius.circular(5),
                 textsize: 20,
