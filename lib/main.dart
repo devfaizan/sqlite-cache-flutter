@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sqlsqlsql/home.dart';
+import 'package:sqlsqlsql/provider/globalappprovider.dart';
 import 'package:sqlsqlsql/provider/petprovider.dart';
 import 'package:sqlsqlsql/provider/userformprovider.dart';
 import 'package:sqlsqlsql/screens/user/userform.dart';
@@ -14,6 +15,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
         ChangeNotifierProvider(create: (context) => UserFormProvider()),
         ChangeNotifierProvider(create: (context) => PetProvider()),
+        ChangeNotifierProvider(create: (context) => AppProvider()),
       ],
       child: const MyApp(),
     ),

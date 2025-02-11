@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqlsqlsql/dbhelper.dart';
+import 'package:sqlsqlsql/provider/globalappprovider.dart';
 import 'package:sqlsqlsql/provider/petprovider.dart';
 import 'package:sqlsqlsql/provider/userformprovider.dart';
 import 'package:sqlsqlsql/screens/pet/allpets.dart';
@@ -41,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appProvider = Provider.of<AppProvider>(context);
     final userProvider = Provider.of<UserFormProvider>(context);
     final currentUser = userProvider.currentUser;
     final petProvider = Provider.of<PetProvider>(context);
@@ -96,95 +98,118 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    Text("Favorite Pet",style: TextStyle(
-                                      fontWeight: FontWeight.w200,
-                                    ),),
+                                    Text(
+                                      "Favorite Pet",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w200,
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        appProvider.toggleExpended();
+                                      },
+                                      icon: Icon(
+                                        appProvider.isFavCardExpanded
+                                            ? Icons.expand_less
+                                            : Icons.expand_more,
+                                      ),
+                                    ),
                                   ],
                                 ),
-                                DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    gradient: const LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment(0.8, 1),
-                                      colors: <Color>[
-                                        colorPurple,
-                                        colorGreen,
-                                      ],
+                                AnimatedContainer(
+                                  duration: Duration(milliseconds: 300),
+                                  curve: Curves.easeInOut,
+                                  height: appProvider.isFavCardExpanded
+                                      ? heightContext < 830
+                                          ? heightContext / 5
+                                          : heightContext / 4
+                                      : 0,
+                                  width: double.infinity,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      gradient: const LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment(0.8, 1),
+                                        colors: <Color>[
+                                          colorPurple,
+                                          colorGreen,
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Stack(
-                                              clipBehavior: Clip.none,
-                                              children: [
-                                                CircleAvatar(
-                                                  radius: 50,
-                                                  backgroundImage: favoritePet
-                                                          .image.isNotEmpty
-                                                      ? FileImage(
-                                                          File(favoritePet
-                                                              .image),
-                                                        )
-                                                      : null,
-                                                  child: favoritePet
-                                                          .image.isEmpty
-                                                      ? const Icon(Icons.pets,
-                                                          size: 50)
-                                                      : null,
-                                                ),
-                                                const Positioned(
-                                                  top: 0,
-                                                  right: -20,
-                                                  child: Text(
-                                                    '💯',
-                                                    style: TextStyle(
-                                                      fontSize: 35,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Stack(
+                                                clipBehavior: Clip.none,
+                                                children: [
+                                                  CircleAvatar(
+                                                    radius: 50,
+                                                    backgroundImage: favoritePet
+                                                            .image.isNotEmpty
+                                                        ? FileImage(
+                                                            File(favoritePet
+                                                                .image),
+                                                          )
+                                                        : null,
+                                                    child: favoritePet
+                                                            .image.isEmpty
+                                                        ? const Icon(Icons.pets,
+                                                            size: 50)
+                                                        : null,
+                                                  ),
+                                                  const Positioned(
+                                                    top: 0,
+                                                    right: -20,
+                                                    child: Text(
+                                                      '💯',
+                                                      style: TextStyle(
+                                                        fontSize: 35,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            DecoratedBox(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                color: Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.light
-                                                    ? const Color.fromARGB(
-                                                        255, 244, 244, 244)
-                                                    : const Color.fromARGB(
-                                                        255, 49, 47, 47),
+                                                ],
                                               ),
-                                              child: const Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                  vertical: 5,
-                                                  horizontal: 20,
+                                              DecoratedBox(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.light
+                                                      ? const Color.fromARGB(
+                                                          255, 244, 244, 244)
+                                                      : const Color.fromARGB(
+                                                          255, 49, 47, 47),
                                                 ),
-                                                child: Text("Above The Rest"),
+                                                child: const Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                    vertical: 5,
+                                                    horizontal: 20,
+                                                  ),
+                                                  child: Text("Above The Rest"),
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 10),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            SubheadingText(
-                                                text: favoritePet.name),
-                                          ],
-                                        ),
-                                      ],
+                                            ],
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SubheadingText(
+                                                  text: favoritePet.name),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
