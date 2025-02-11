@@ -38,7 +38,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final heightContext = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Edit Profile"),
+        title: Text("Edit ${widget.user!.name}'s Profile"),
         centerTitle: true,
       ),
       drawer: AppDrawer(),
