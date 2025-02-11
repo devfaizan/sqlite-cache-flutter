@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   height: appProvider.isFavCardExpanded
                                       ? heightContext < 830
                                           ? heightContext / 5
-                                          : heightContext / 4
+                                          : heightContext / 6.5
                                       : 0,
                                   width: double.infinity,
                                   child: DecoratedBox(
@@ -137,78 +137,86 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ],
                                       ),
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Stack(
-                                                clipBehavior: Clip.none,
-                                                children: [
-                                                  CircleAvatar(
-                                                    radius: 50,
-                                                    backgroundImage: favoritePet
-                                                            .image.isNotEmpty
-                                                        ? FileImage(
-                                                            File(favoritePet
-                                                                .image),
-                                                          )
-                                                        : null,
-                                                    child: favoritePet
-                                                            .image.isEmpty
-                                                        ? const Icon(Icons.pets,
-                                                            size: 50)
-                                                        : null,
-                                                  ),
-                                                  const Positioned(
-                                                    top: 0,
-                                                    right: -20,
-                                                    child: Text(
-                                                      '💯',
-                                                      style: TextStyle(
-                                                        fontSize: 35,
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                    child: SingleChildScrollView(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Stack(
+                                                  clipBehavior: Clip.none,
+                                                  children: [
+                                                    CircleAvatar(
+                                                      radius: 50,
+                                                      backgroundImage:
+                                                          favoritePet.image
+                                                                  .isNotEmpty
+                                                              ? FileImage(
+                                                                  File(favoritePet
+                                                                      .image),
+                                                                )
+                                                              : null,
+                                                      child: favoritePet
+                                                              .image.isEmpty
+                                                          ? const Icon(
+                                                              Icons.pets,
+                                                              size: 50)
+                                                          : null,
+                                                    ),
+                                                    const Positioned(
+                                                      top: 0,
+                                                      right: -20,
+                                                      child: Text(
+                                                        '💯',
+                                                        style: TextStyle(
+                                                          fontSize: 35,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                              DecoratedBox(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.light
-                                                      ? const Color.fromARGB(
-                                                          255, 244, 244, 244)
-                                                      : const Color.fromARGB(
-                                                          255, 49, 47, 47),
+                                                  ],
                                                 ),
-                                                child: const Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                    vertical: 5,
-                                                    horizontal: 20,
+                                                DecoratedBox(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.light
+                                                        ? const Color.fromARGB(
+                                                            255, 244, 244, 244)
+                                                        : const Color.fromARGB(
+                                                            255, 49, 47, 47),
                                                   ),
-                                                  child: Text("Above The Rest"),
+                                                  child: const Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                      vertical: 5,
+                                                      horizontal: 20,
+                                                    ),
+                                                    child:
+                                                        Text("Above The Rest"),
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              SubheadingText(
-                                                  text: favoritePet.name),
-                                            ],
-                                          ),
-                                        ],
+                                              ],
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SubheadingText(
+                                                    text: favoritePet.name),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
