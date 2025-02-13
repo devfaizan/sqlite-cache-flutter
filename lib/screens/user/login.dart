@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Column(
             children: [
               PrimaryButton(
-                text: "Let's Go",
+                text: "Login",
                 onPressed: () async {
                   if (_key.currentState!.validate()) {
                     final logedInUser = await userFormProvider.userLogin(
