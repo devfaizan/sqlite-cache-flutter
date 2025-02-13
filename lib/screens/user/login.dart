@@ -28,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final userFormProvider =
         Provider.of<UserFormProvider>(context, listen: false);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(),
       drawer: const AppDrawer(),
       body: Column(
@@ -56,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: ListView(
                 padding: EdgeInsets.symmetric(
                   horizontal: 20,
-                  vertical: heightContext < 830 ? 30 : 20,
+                  vertical: heightContext < 830 ? 35 : 20,
                 ),
                 children: <Widget>[
                   Form(
