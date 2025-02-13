@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: ListView(
                 padding: EdgeInsets.symmetric(
                   horizontal: 20,
-                  vertical: heightContext < 830 ? 35 : 20,
+                  vertical: heightContext < 830 ? 45 : 20,
                 ),
                 children: <Widget>[
                   Form(
