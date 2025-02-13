@@ -6,6 +6,7 @@ import "../../dbhelper.dart";
 import "../../home.dart";
 import "../../provider/userformprovider.dart";
 import "../../utils/validation.dart";
+import "../../widgets/form/formtop.dart";
 import "../../widgets/inputwidget.dart";
 import "../../widgets/primarybutton.dart";
 
@@ -33,6 +34,17 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          Padding(
+            padding: EdgeInsets.only(
+              top: heightContext < 830 ? 0 : heightContext / 20,
+            ),
+          ),
+          const FormTop(
+            topText: 'Login Into Your Account',
+            topImagePath: 'assets/users.png',
+            bottomText: 'Fill Below Fields to Login',
+          ),
+
           Expanded(
             child: DecoratedBox(
               decoration: BoxDecoration(
@@ -44,14 +56,9 @@ class _LoginScreenState extends State<LoginScreen> {
               child: ListView(
                 padding: EdgeInsets.symmetric(
                   horizontal: 20,
-                  vertical: heightContext < 830 ? 80 : 20,
+                  vertical: heightContext < 830 ? 30 : 20,
                 ),
                 children: <Widget>[
-                  SizedBox(
-                    height: heightContext < 830
-                        ? heightContext / 30
-                        : heightContext / 10,
-                  ),
                   Form(
                     key: _key,
                     child: Column(
