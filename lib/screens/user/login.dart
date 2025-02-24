@@ -48,50 +48,55 @@ class _LoginScreenState extends State<LoginScreen> {
             bottomText: 'Fill Below Fields to Login',
           ),
           Expanded(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Theme.of(context).brightness == Brightness.light
-                    ? const Color.fromARGB(255, 244, 244, 244)
-                    : const Color.fromARGB(255, 49, 47, 47),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
               ),
-              child: ListView(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: heightContext < 830 ? 30 : 20,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? const Color.fromARGB(255, 244, 244, 244)
+                      : const Color.fromARGB(255, 49, 47, 47),
                 ),
-                children: <Widget>[
-                  Form(
-                    key: _key,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        InputWidget(
-                          controller: emailController,
-                          hint: "Email",
-                          label: "Enter Your Email",
-                          preicon: Icons.mail,
-                          iconsize: 25.0,
-                          validation: validateEmail,
-                          action: TextInputAction.next,
-                        ),
-                        SizedBox(
-                          height: heightContext / 40,
-                        ),
-                        InputWidget(
-                          controller: passwordController,
-                          hint: "Password",
-                          label: "Choose Password",
-                          preicon: Icons.password,
-                          iconsize: 25.0,
-                          validation: validatePassword,
-                          action: TextInputAction.done,
-                          obscureText: true,
-                        ),
-                      ],
-                    ),
+                child: ListView(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: heightContext < 830 ? 35 : 20,
                   ),
-                ],
+                  children: <Widget>[
+                    Form(
+                      key: _key,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InputWidget(
+                            controller: emailController,
+                            hint: "Email",
+                            label: "Enter Your Email",
+                            preicon: Icons.mail,
+                            iconsize: 25.0,
+                            validation: validateEmail,
+                            action: TextInputAction.next,
+                          ),
+                          SizedBox(
+                            height: heightContext / 40,
+                          ),
+                          InputWidget(
+                            controller: passwordController,
+                            hint: "Password",
+                            label: "Choose Password",
+                            preicon: Icons.password,
+                            iconsize: 25.0,
+                            validation: validatePassword,
+                            action: TextInputAction.done,
+                            obscureText: true,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
