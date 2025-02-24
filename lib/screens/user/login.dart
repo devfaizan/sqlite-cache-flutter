@@ -103,10 +103,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => UserFormScreen()));
+                          builder: (context) => const UserFormScreen()));
                 },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(
                     vertical: 5,
                     horizontal: 10,
                   ),
