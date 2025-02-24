@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
+import "package:sqlsqlsql/screens/user/userform.dart";
 import "package:sqlsqlsql/widgets/drawer/drawer.dart";
 
 import "../../dbhelper.dart";
@@ -22,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
   final _key = GlobalKey<FormState>();
   final DatabaseHelper _databaseHelper = DatabaseHelper.instance;
+
   @override
   Widget build(BuildContext context) {
     final heightContext = MediaQuery.of(context).size.height;
@@ -45,7 +47,6 @@ class _LoginScreenState extends State<LoginScreen> {
             topImagePath: 'assets/users.png',
             bottomText: 'Fill Below Fields to Login',
           ),
-
           Expanded(
             child: DecoratedBox(
               decoration: BoxDecoration(
@@ -57,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: ListView(
                 padding: EdgeInsets.symmetric(
                   horizontal: 20,
-                  vertical: heightContext < 830 ? 45 : 20,
+                  vertical: heightContext < 830 ? 30 : 20,
                 ),
                 children: <Widget>[
                   Form(
@@ -93,6 +94,31 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => UserFormScreen()));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 5,
+                    horizontal: 10,
+                  ),
+                  child: Text(
+                    "Need to Make An Account?",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w200,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           SizedBox(
             height: heightContext < 830 ? 220 : 200,
