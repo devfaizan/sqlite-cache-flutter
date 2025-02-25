@@ -47,7 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
     final appProvider = Provider.of<AppProvider>(context);
     final userProvider = Provider.of<UserFormProvider>(context);
     final currentUser = userProvider.currentUser;
-    final petProvider = Provider.of<PetProvider>(context);
     final heightContext = MediaQuery.of(context).size.height;
     final widthContext = MediaQuery.of(context).size.width;
 
@@ -491,7 +490,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     ),
                                                     const SizedBox(height: 8),
                                                     const Text(
-                                                      "View All Cats",
+                                                      "View All Parrots",
                                                       // Use the desired text
                                                       style: TextStyle(
                                                         fontSize: 16,
