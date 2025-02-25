@@ -2,15 +2,18 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sqlsqlsql/home.dart';
 import 'package:sqlsqlsql/models/users.dart';
 import 'package:sqlsqlsql/provider/userformprovider.dart';
 import 'package:sqlsqlsql/utils/validation.dart';
-import 'package:sqlsqlsql/widgets/drawer/drawer.dart';
 import 'package:sqlsqlsql/widgets/inputwidget.dart';
 import 'package:sqlsqlsql/widgets/primarybutton.dart';
 
+import '../../dbhelper.dart';
+
 class EditProfileScreen extends StatefulWidget {
   final User? user;
+
   const EditProfileScreen({
     super.key,
     required this.user,
@@ -22,6 +25,7 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController nameController = TextEditingController();
+  final DatabaseHelper _databaseHelper = DatabaseHelper.instance;
   final _key = GlobalKey<FormState>();
   String? imagePath;
 
@@ -33,15 +37,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   @override
+  void dispose() {
+    nameController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final userFormProvider = Provider.of<UserFormProvider>(context);
+    final currentUser = userFormProvider.currentUser;
     final heightContext = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text("Edit ${widget.user!.name}'s Profile"),
         centerTitle: true,
       ),
-      drawer: AppDrawer(),
       body: Column(
         children: [
           Padding(
@@ -49,31 +59,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               top: heightContext / 50,
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  await userFormProvider.pickImage();
-                },
-                child: Text("Change Image"),
-              ),
-            ],
+          ElevatedButton(
+            onPressed: () async {
+              await userFormProvider.pickImage();
+              setState(() {
+                imagePath = userFormProvider.imagePath;
+              });
+            },
+            child: const Text("Change Image"),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Consumer<UserFormProvider>(
-                builder: (context, userProvider, child) {
-                  return CircleAvatar(
-                    radius: 120,
-                    backgroundImage: userProvider.imagePath.isNotEmpty
-                        ? FileImage(File(userProvider.imagePath))
-                        : FileImage(File(widget.user!.image)),
-                  );
-                },
-              ),
-            ],
+          Consumer<UserFormProvider>(
+            builder: (context, userFormProvider, child) {
+              return CircleAvatar(
+                radius: 120,
+                backgroundImage: userFormProvider.imagePath.isNotEmpty
+                    ? FileImage(File(userFormProvider.imagePath))
+                    : FileImage(File(widget.user!.image)),
+              );
+            },
           ),
           Padding(
             padding: EdgeInsets.only(
@@ -131,7 +134,48 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             children: [
               PrimaryButton(
                 text: "Update Profile",
-                onPressed: () async {},
+                onPressed: () async {
+                  if (_key.currentState!.validate()) {
+                    final name = nameController.text.trim();
+                    if (name.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please fill in all fields correctly'),
+                        ),
+                      );
+                      return;
+                    }
+                    final updateUser = User(
+                      id: widget.user!.id,
+                      email: widget.user!.email,
+                      name: name,
+                      password: widget.user!.password,
+                      image: imagePath!,
+                    );
+
+                    try {
+                      await _databaseHelper.updateUser(updateUser);
+                      await userFormProvider.saveSession(updateUser);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('User updated successfully!')),
+                      );
+                      userFormProvider.clearImagePath();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomeScreen(),
+                        ),
+                        (route) => false,
+                      );
+                    } catch (e) {
+                      print("Update failed: $e");
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Failed to update user: $e')),
+                      );
+                    }
+                  }
+                },
                 borderRadius: BorderRadius.circular(5),
                 textsize: 20,
               ),
