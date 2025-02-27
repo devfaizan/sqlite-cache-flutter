@@ -14,6 +14,7 @@ import 'package:sqlsqlsql/widgets/primarybutton.dart';
 
 class UpdateScreen extends StatefulWidget {
   final Pet? pet;
+
   const UpdateScreen({super.key, this.pet});
 
   @override
@@ -195,10 +196,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                 text: "Update Pet",
                 onPressed: () async {
                   if (_key.currentState!.validate()) {
-                    final name = nameController.text.trim();
-                    final tagline = tagLineController.text.trim();
-                    final age = int.tryParse(ageController.text) ?? 0;
-                    if (selectedPetType == null || name.isEmpty || age == 0) {
+                    if (selectedPetType == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                             content:
@@ -206,37 +204,14 @@ class _UpdateScreenState extends State<UpdateScreen> {
                       );
                       return;
                     }
-
-                    final updatedPet = Pet(
-                      id: widget.pet!.id,
-                      name: name,
-                      age: age,
-                      type: selectedPetType!,
-                      image: imagePath!,
-                      tagLine: tagline,
-                      userId: currentUser!.id!,
-                    );
-
-                    try {
-                      await _databaseHelper.updatePet(updatedPet);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Pet updated successfully!')),
-                      );
-                      petProvider.clearImagePath();
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const AllPetsScreen(),
-                        ),
-                        (route) => false,
-                      );
-                    } catch (e) {
-                      print("Update failed: $e");
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Failed to update pet: $e')),
-                      );
-                    }
+                    final updatedPet = petProvider.updatePet(
+                        name: nameController.text.trim(),
+                        age: int.parse(ageController.text),
+                        type: selectedPetType!,
+                        tagline: tagLineController.text.trim(),
+                        databaseHelper: _databaseHelper,
+                        context: context,
+                        userId: currentUser!.id!);
                   }
                 },
                 borderRadius: BorderRadius.circular(5),

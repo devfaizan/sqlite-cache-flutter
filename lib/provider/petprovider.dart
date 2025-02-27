@@ -104,6 +104,46 @@ class PetProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> updatePet({
+    required String name,
+    required int age,
+    required String type,
+    required String tagline,
+    required DatabaseHelper databaseHelper,
+    required BuildContext context,
+    required int userId,
+  }) async {
+    if (name.isEmpty || type.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('All Fields are required')),
+      );
+      return;
+    }
+    setLoading(true);
+    try {
+      final updatePet = Pet(
+        name: name,
+        age: age,
+        type: type,
+        image: imagePath,
+        userId: userId,
+        tagLine: tagline,
+      );
+      await databaseHelper.updatePet(updatePet);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Pet Updated for provider')),
+      );
+      clearImagePath();
+    } catch (e) {
+      debugPrint('Update Failed: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to update pet: ${e.toString()}')),
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
   Future<void> toggleFavoriteStatus(
     Pet pet,
     User user,
