@@ -105,31 +105,35 @@ class PetProvider extends ChangeNotifier {
   }
 
   Future<void> updatePet({
-    required String name,
-    required int age,
-    required String type,
-    required String tagline,
+    String? name,
+    int? age,
+    String? type,
+    String? tagline,
     required DatabaseHelper databaseHelper,
     required BuildContext context,
     required int userId,
     required int petId,
   }) async {
-    if (name.isEmpty || type.isEmpty || _imagePath.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('All Fields are required')),
-      );
-      return;
-    }
     setLoading(true);
     try {
+      final existingPet = await databaseHelper.getSinglePetById(petId);
+
+      if (existingPet == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Pet not found')),
+        );
+        return;
+      }
+
+
       final updatedPet = Pet(
-        name: name,
-        age: age,
-        type: type,
-        image: imagePath,
+        id: petId,
+        name: name ?? existingPet.name,
+        age: age ?? existingPet.age,
+        type: type ?? existingPet.type,
+        image: _imagePath.isNotEmpty ? _imagePath : existingPet.image,
         userId: userId,
         tagLine: tagline,
-        id: petId,
       );
       await databaseHelper.updatePet(updatedPet);
       ScaffoldMessenger.of(context).showSnackBar(

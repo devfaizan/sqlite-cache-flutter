@@ -116,6 +116,19 @@ class DatabaseHelper {
     );
   }
 
+  Future<Pet?> getSinglePetById(int petid) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      _tableName,
+      where: '$_idColumn = ?',
+      whereArgs: [petid],
+    );
+    if (maps.isNotEmpty) {
+      return Pet.fromMap(maps.first); // Return the first (and only) pet
+    }
+    return null;
+  }
+
   Future<List<Pet>> getPetsForUser(int userId) async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(
