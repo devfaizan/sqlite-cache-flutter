@@ -1,12 +1,12 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqlsqlsql/dbhelper.dart';
 import 'package:sqlsqlsql/models/cats.dart';
 import 'package:sqlsqlsql/provider/petprovider.dart';
 import 'package:sqlsqlsql/provider/userformprovider.dart';
-import 'package:sqlsqlsql/screens/pet/allpets.dart';
 import 'package:sqlsqlsql/utils/validation.dart';
 import 'package:sqlsqlsql/widgets/inputdrop.dart';
 import 'package:sqlsqlsql/widgets/inputwidget.dart';
@@ -217,7 +217,9 @@ class _UpdateScreenState extends State<UpdateScreen> {
                       petId: widget.pet!.id!,
                     );
                   } else {
-                    print("not working");
+                    if (kDebugMode) {
+                      print("not working");
+                    }
                   }
                 },
                 borderRadius: BorderRadius.circular(5),
