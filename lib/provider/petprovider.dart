@@ -9,6 +9,7 @@ class PetProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool _isExpanded = false;
   Pet? _favoritePet;
+  Pet? _updatedPet;
   // Map<String, List<Pet>> _petsByType = {}; // Holds pets grouped by type
   List<Pet> _catsOfSingleType = [];
   List<Pet> _parrotsOfSingleType = [];
@@ -20,6 +21,8 @@ class PetProvider extends ChangeNotifier {
   bool get isExpended => _isExpanded;
 
   Pet? get favoritePet => _favoritePet;
+
+  Pet? get updatedPet => _updatedPet;
   // Map<String, List<Pet>> get petsByType => _petsByType;
   List<Pet> get catsOfSingleType => _catsOfSingleType;
   List<Pet> get parrotsOfSingleType => _parrotsOfSingleType;
@@ -125,7 +128,6 @@ class PetProvider extends ChangeNotifier {
         return;
       }
 
-
       final updatedPet = Pet(
         id: petId,
         name: name ?? existingPet.name,
@@ -136,10 +138,11 @@ class PetProvider extends ChangeNotifier {
         tagLine: tagline,
       );
       await databaseHelper.updatePet(updatedPet);
+      _updatedPet = updatedPet;
+      notifyListeners();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Pet Updated for provider')),
       );
-      notifyListeners();
     } catch (e) {
       debugPrint('Update Failed: $e');
       ScaffoldMessenger.of(context).showSnackBar(

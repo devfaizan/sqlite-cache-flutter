@@ -31,7 +31,9 @@ class _SinglePetScreenState extends State<SinglePetScreen> {
     final widthContext = MediaQuery.of(context).size.width;
     final userFormProvider =
         Provider.of<UserFormProvider>(context, listen: false);
+    final petProvider = Provider.of<PetProvider>(context, listen: true);
     final currentUser = userFormProvider.currentUser;
+    final displayedPet = petProvider.updatedPet ?? widget.pet;
     return Scaffold(
       key: _key,
       extendBodyBehindAppBar: true,
@@ -48,14 +50,14 @@ class _SinglePetScreenState extends State<SinglePetScreen> {
                 ),
                 child: IconButton(
                   icon: Icon(
-                    widget.pet.fav == 1
+                    displayedPet.fav == 1
                         ? Icons.favorite
                         : Icons.favorite_border,
-                    color: widget.pet.fav == 1 ? Colors.red : Colors.white,
+                    color: displayedPet.fav == 1 ? Colors.red : Colors.white,
                   ),
                   onPressed: () async {
                     await petProvider.toggleFavoriteStatus(
-                        widget.pet, currentUser!, _databaseHelper, context);
+                        displayedPet, currentUser!, _databaseHelper, context);
                   },
                 ),
               );
@@ -98,7 +100,7 @@ class _SinglePetScreenState extends State<SinglePetScreen> {
                           borderRadius: BorderRadius.circular(20),
                           image: DecorationImage(
                             image: FileImage(
-                              File(widget.pet.image),
+                              File(displayedPet.image),
                             ),
                             // opacity: .8,
                             fit: BoxFit.cover,
@@ -137,10 +139,10 @@ class _SinglePetScreenState extends State<SinglePetScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 NormalText(
-                                  text: widget.pet.type,
+                                  text: displayedPet.type,
                                 ),
                                 SubheadingText(
-                                  text: widget.pet.name,
+                                  text: displayedPet.name,
                                 ),
                               ],
                             ),
@@ -189,7 +191,7 @@ class _SinglePetScreenState extends State<SinglePetScreen> {
                               children: [
                                 Flexible(
                                   child: SubheadingText(
-                                    text: "‘‘ ${widget.pet.tagLine} ’’",
+                                    text: "‘‘ ${displayedPet.tagLine} ’’",
                                   ),
                                 ),
                               ],
@@ -234,7 +236,7 @@ class _SinglePetScreenState extends State<SinglePetScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => UpdateScreen(pet: widget.pet),
+                          builder: (context) => UpdateScreen(pet: displayedPet),
                         ),
                       );
                     },
@@ -250,7 +252,7 @@ class _SinglePetScreenState extends State<SinglePetScreen> {
                           ),
                         ),
                         Text(
-                          "Edit ${widget.pet.name}",
+                          "Edit ${displayedPet.name}",
                         ),
                       ],
                     ),

@@ -7,6 +7,7 @@ import 'package:sqlsqlsql/dbhelper.dart';
 import 'package:sqlsqlsql/models/cats.dart';
 import 'package:sqlsqlsql/provider/petprovider.dart';
 import 'package:sqlsqlsql/provider/userformprovider.dart';
+import 'package:sqlsqlsql/screens/pet/singlepetview.dart';
 import 'package:sqlsqlsql/utils/validation.dart';
 import 'package:sqlsqlsql/widgets/inputdrop.dart';
 import 'package:sqlsqlsql/widgets/inputwidget.dart';
@@ -53,7 +54,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserFormProvider>(context);
-    final petProvider = Provider.of<PetProvider>(context);
+    final petProvider = Provider.of<PetProvider>(context, listen: true);
     final currentUser = userProvider.currentUser;
     final heightContext = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -204,9 +205,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                       );
                       return;
                     }
-                    final petProvider =
-                    Provider.of<PetProvider>(context, listen: false);
-                    petProvider.updatePet(
+                    await petProvider.updatePet(
                       name: nameController.text,
                       age: int.parse(ageController.text),
                       type: selectedPetType!,
@@ -215,6 +214,18 @@ class _UpdateScreenState extends State<UpdateScreen> {
                       context: context,
                       userId: currentUser!.id!,
                       petId: widget.pet!.id!,
+                    );
+                    final updatedPet =
+                        await _databaseHelper.getSinglePetById(widget.pet!.id!);
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChangeNotifierProvider.value(
+                          value: petProvider,
+                          child: SinglePetScreen(pet: updatedPet!),
+                        ),
+                      ),
+                      (route) => route.isFirst,
                     );
                   } else {
                     if (kDebugMode) {
