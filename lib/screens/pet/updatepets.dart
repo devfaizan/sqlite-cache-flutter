@@ -204,14 +204,20 @@ class _UpdateScreenState extends State<UpdateScreen> {
                       );
                       return;
                     }
-                    final updatedPet = petProvider.updatePet(
-                        name: nameController.text.trim(),
-                        age: int.parse(ageController.text),
-                        type: selectedPetType!,
-                        tagline: tagLineController.text.trim(),
-                        databaseHelper: _databaseHelper,
-                        context: context,
-                        userId: currentUser!.id!);
+                    final petProvider =
+                    Provider.of<PetProvider>(context, listen: false);
+                    petProvider.updatePet(
+                      name: nameController.text,
+                      age: int.parse(ageController.text),
+                      type: selectedPetType!,
+                      tagline: tagLineController.text,
+                      databaseHelper: _databaseHelper,
+                      context: context,
+                      userId: currentUser!.id!,
+                      petId: widget.pet!.id!,
+                    );
+                  } else {
+                    print("not working");
                   }
                 },
                 borderRadius: BorderRadius.circular(5),

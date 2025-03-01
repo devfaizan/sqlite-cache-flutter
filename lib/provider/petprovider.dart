@@ -112,8 +112,9 @@ class PetProvider extends ChangeNotifier {
     required DatabaseHelper databaseHelper,
     required BuildContext context,
     required int userId,
+    required int petId,
   }) async {
-    if (name.isEmpty || type.isEmpty) {
+    if (name.isEmpty || type.isEmpty || _imagePath.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('All Fields are required')),
       );
@@ -121,19 +122,20 @@ class PetProvider extends ChangeNotifier {
     }
     setLoading(true);
     try {
-      final updatePet = Pet(
+      final updatedPet = Pet(
         name: name,
         age: age,
         type: type,
         image: imagePath,
         userId: userId,
         tagLine: tagline,
+        id: petId,
       );
-      await databaseHelper.updatePet(updatePet);
+      await databaseHelper.updatePet(updatedPet);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Pet Updated for provider')),
       );
-      clearImagePath();
+      notifyListeners();
     } catch (e) {
       debugPrint('Update Failed: $e');
       ScaffoldMessenger.of(context).showSnackBar(
@@ -141,6 +143,7 @@ class PetProvider extends ChangeNotifier {
       );
     } finally {
       setLoading(false);
+      notifyListeners();
     }
   }
 
