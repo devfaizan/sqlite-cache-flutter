@@ -10,6 +10,7 @@ import 'package:sqlsqlsql/widgets/drawer/drawer.dart';
 
 class UserProfile extends StatefulWidget {
   final User user;
+
   const UserProfile({
     super.key,
     required this.user,
@@ -21,6 +22,7 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     final heightContext = MediaQuery.of(context).size.height;
@@ -94,7 +96,7 @@ class _UserProfileState extends State<UserProfile> {
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              color: Colors.grey.shade200.withOpacity(0.3),
+                              color: Colors.grey.shade200.withOpacity(0.5),
                               gradient: LinearGradient(
                                 colors: [
                                   colorLightPurple,
@@ -108,8 +110,11 @@ class _UserProfileState extends State<UserProfile> {
                                 NormalText(
                                   text: widget.user.email,
                                 ),
-                                SubheadingText(
-                                  text: widget.user.name,
+                                SizedBox(width: widthContext / 9,),
+                                Flexible(
+                                  child: SubheadingText(
+                                    text: widget.user.name,
+                                  ),
                                 ),
                               ],
                             ),
