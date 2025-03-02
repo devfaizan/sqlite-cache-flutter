@@ -72,13 +72,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        GradientHeading(
-                          text: "Welcome, ${currentUser.name}!",
-                          gradient: LinearGradient(colors: [
-                            colorGreen,
-                            colorLightPurple,
-                            Colors.redAccent,
-                          ]),
+                        Flexible(
+                          child: GradientHeading(
+                            text: "Welcome, ${currentUser.name}!",
+                            gradient: LinearGradient(colors: [
+                              colorGreen,
+                              colorLightPurple,
+                              Colors.redAccent,
+                            ]),
+                          ),
                         ),
                       ],
                     ),
