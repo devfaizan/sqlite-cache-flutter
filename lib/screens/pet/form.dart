@@ -25,7 +25,6 @@ class _FormScreenState extends State<FormScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController tagLineController = TextEditingController();
-  String? selectedPetType;
   final _key = GlobalKey<FormState>();
 
   final DatabaseHelper _databaseHelper = DatabaseHelper.instance;
@@ -52,6 +51,7 @@ class _FormScreenState extends State<FormScreen> {
   @override
   Widget build(BuildContext context) {
     final userFormProvider = Provider.of<UserFormProvider>(context);
+    final petProvider = Provider.of<PetProvider>(context);
     final currentUser = userFormProvider.currentUser;
     final heightContext = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -157,9 +157,7 @@ class _FormScreenState extends State<FormScreen> {
                                 preicon: Icons.pets,
                                 iconsize: 25.0,
                                 onChanged: (value) {
-                                  setState(() {
-                                    selectedPetType = value;
-                                  });
+                                  petProvider.setSelectedPetType(value);
                                 },
                                 validation: (value) {
                                   if (value == null || value.isEmpty) {
@@ -266,20 +264,13 @@ class _FormScreenState extends State<FormScreen> {
                 text: "Add Pet",
                 onPressed: () async {
                   if (_key.currentState!.validate()) {
-                    if (selectedPetType == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Please select a pet type')),
-                      );
-                      return;
-                    }
                     final petProvider =
                         Provider.of<PetProvider>(context, listen: false);
                     petProvider.submitForm(
                       name: nameController.text,
                       tagline: tagLineController.text,
                       age: int.parse(ageController.text),
-                      type: selectedPetType!,
+                      type: petProvider.selectedPetType!,
                       databaseHelper: _databaseHelper,
                       context: context,
                       userId: currentUser!.id!,
