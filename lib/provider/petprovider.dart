@@ -6,15 +6,19 @@ import '../models/cats.dart';
 
 class PetProvider extends ChangeNotifier {
   String _imagePath = "";
+  String? _selectedPetType = "";
   bool _isLoading = false;
   bool _isExpanded = false;
   Pet? _favoritePet;
   Pet? _updatedPet;
+
   // Map<String, List<Pet>> _petsByType = {}; // Holds pets grouped by type
   List<Pet> _catsOfSingleType = [];
   List<Pet> _parrotsOfSingleType = [];
 
   String get imagePath => _imagePath;
+
+  String? get selectedPetType => _selectedPetType;
 
   bool get isLoading => _isLoading;
 
@@ -23,8 +27,10 @@ class PetProvider extends ChangeNotifier {
   Pet? get favoritePet => _favoritePet;
 
   Pet? get updatedPet => _updatedPet;
+
   // Map<String, List<Pet>> get petsByType => _petsByType;
   List<Pet> get catsOfSingleType => _catsOfSingleType;
+
   List<Pet> get parrotsOfSingleType => _parrotsOfSingleType;
 
   void toggleExpended() {
@@ -32,8 +38,19 @@ class PetProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
   void setImagePath(String path) {
     _imagePath = path;
+    notifyListeners();
+  }
+
+  void setSelectedPetType(String? type) {
+    _selectedPetType = type;
+    notifyListeners();
+  }
+
+  void clearSelectedPetType() {
+    _selectedPetType = null;
     notifyListeners();
   }
 
@@ -199,8 +216,7 @@ class PetProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> getPetsByCat(
-      int userid, DatabaseHelper databaseHelper) async {
+  Future<void> getPetsByCat(int userid, DatabaseHelper databaseHelper) async {
     try {
       setLoading(true);
       _catsOfSingleType = await databaseHelper.getPetsByType('Cat', userid);
@@ -213,11 +229,13 @@ class PetProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
   Future<void> getPetsByParrot(
       int userid, DatabaseHelper databaseHelper) async {
     try {
       setLoading(true);
-      _parrotsOfSingleType = await databaseHelper.getPetsByType('Parrot', userid);
+      _parrotsOfSingleType =
+          await databaseHelper.getPetsByType('Parrot', userid);
       printPetsOfSingleType();
     } catch (e) {
       debugPrint('Error fetching pets by type: $e');
