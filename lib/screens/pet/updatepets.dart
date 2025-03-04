@@ -40,8 +40,11 @@ class _UpdateScreenState extends State<UpdateScreen> {
     tagLineController = TextEditingController(text: widget.pet?.tagLine ?? '');
     ageController =
         TextEditingController(text: widget.pet?.age.toString() ?? '');
-    selectedPetType = widget.pet?.type;
     imagePath = widget.pet?.image;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final petProvider = Provider.of<PetProvider>(context, listen: false);
+      petProvider.setSelectedPetType(widget.pet?.type);
+    });
   }
 
   @override
@@ -159,25 +162,26 @@ class _UpdateScreenState extends State<UpdateScreen> {
                           SizedBox(
                             height: heightContext / 40,
                           ),
-                          DropdownWidget(
-                            items: const ['Cat', 'Parrot', 'Rooster', 'Duck'],
-                            hint: 'Select Type of Your Pet',
-                            label: "Pet Type",
-                            preicon: Icons.pets,
-                            iconsize: 25.0,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedPetType = value;
-                              });
-                            },
-                            initialValue: selectedPetType,
-                            validation: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please select an option';
-                              }
-                              return null;
-                            },
-                          ),
+                          Consumer<PetProvider>(
+                              builder: (context, petProvider, child) {
+                            return DropdownWidget(
+                              items: const ['Cat', 'Parrot', 'Rooster', 'Duck'],
+                              hint: 'Select Type of Your Pet',
+                              label: "Pet Type",
+                              preicon: Icons.pets,
+                              iconsize: 25.0,
+                              onChanged: (value) {
+                                petProvider.setSelectedPetType(value);
+                              },
+                              initialValue: petProvider.selectedPetType,
+                              validation: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please select an option';
+                                }
+                                return null;
+                              },
+                            );
+                          }),
                         ],
                       ),
                     ),
@@ -197,18 +201,10 @@ class _UpdateScreenState extends State<UpdateScreen> {
                 text: "Update Pet",
                 onPressed: () async {
                   if (_key.currentState!.validate()) {
-                    if (selectedPetType == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content:
-                                Text('Please fill in all fields correctly')),
-                      );
-                      return;
-                    }
                     await petProvider.updatePet(
                       name: nameController.text,
                       age: int.parse(ageController.text),
-                      type: selectedPetType!,
+                      type: petProvider.selectedPetType!,
                       tagline: tagLineController.text,
                       databaseHelper: _databaseHelper,
                       context: context,
