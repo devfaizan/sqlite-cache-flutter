@@ -78,9 +78,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
           ElevatedButton(
             onPressed: () async {
               await petProvider.pickImage();
-              setState(() {
-                imagePath = petProvider.imagePath;
-              });
+
             },
             child: const Text("Change Image"),
           ),

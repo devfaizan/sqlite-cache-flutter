@@ -37,16 +37,7 @@ class _FormScreenState extends State<FormScreen> {
     super.dispose();
   }
 
-  Future<void> showImagePicker() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-    if (pickedFile != null) {
-      setState(() {
-        imagePath = pickedFile.path;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
