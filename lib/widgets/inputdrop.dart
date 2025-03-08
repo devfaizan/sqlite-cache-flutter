@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sqlsqlsql/provider/globalappprovider.dart';
 import 'package:sqlsqlsql/utils/colors.dart';
 
 class DropdownWidget extends StatefulWidget {
@@ -30,19 +32,12 @@ class DropdownWidget extends StatefulWidget {
 
 class _DropdownWidgetState extends State<DropdownWidget> {
   late FocusNode myFocusNode;
-  String? selectedValue;
+
 
   @override
   void initState() {
     super.initState();
     myFocusNode = FocusNode();
-    selectedValue = widget.initialValue;
-  }
-
-  void _requestFocus() {
-    setState(() {
-      FocusScope.of(context).requestFocus(myFocusNode);
-    });
   }
 
   @override
@@ -53,6 +48,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final globalProvider = Provider.of<AppProvider>(context);
     return FormField<String>(
       validator: widget.validation,
       builder: (FormFieldState<String> state) {
@@ -82,13 +78,11 @@ class _DropdownWidgetState extends State<DropdownWidget> {
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
-              value: selectedValue,
+              value: globalProvider.selectedValue,
               isExpanded: true,
               onChanged: (newValue) {
-                setState(() {
-                  selectedValue = newValue;
-                  widget.onChanged(newValue);
-                });
+                globalProvider.setSelectedValue(newValue);
+                widget.onChanged.call(newValue);
                 state.didChange(newValue);
               },
               items: widget.items
