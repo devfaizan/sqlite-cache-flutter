@@ -186,4 +186,42 @@ class UserFormProvider extends ChangeNotifier {
     _currentUser = null;
     notifyListeners();
   }
+
+  Future<void> updateUser({
+    required User user,
+    required DatabaseHelper databaseHelper,
+    required BuildContext context,
+  }) async {
+    if (user.name.isEmpty || _imagePath.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Name and Image are required')),
+      );
+      return;
+    }
+
+    setLoading(true);
+    try {
+      final updatedUser = User(
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        password: user.password,
+        image: _imagePath.isNotEmpty ? _imagePath : user.image,
+      );
+
+      await databaseHelper.updateUser(updatedUser);
+      await saveSession(updatedUser); // Save the updated user session
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('User updated successfully!')),
+      );
+      clearImagePath();
+    } catch (e) {
+      debugPrint('Update failed: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to update user: $e')),
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
 }
