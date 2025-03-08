@@ -62,9 +62,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ElevatedButton(
             onPressed: () async {
               await userFormProvider.pickImage();
-              setState(() {
-                imagePath = userFormProvider.imagePath;
-              });
             },
             child: const Text("Change Image"),
           ),
@@ -145,35 +142,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       );
                       return;
                     }
-                    final updateUser = User(
+                    final updatedUser = User(
                       id: widget.user!.id,
                       email: widget.user!.email,
                       name: name,
                       password: widget.user!.password,
-                      image: imagePath!,
+                      image: imagePath ?? widget.user!.image,
+                    );
+                    await userFormProvider.updateUser(
+                      user: updatedUser,
+                      databaseHelper: _databaseHelper,
+                      context: context,
+                    );
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
+                          (route) => false,
                     );
 
-                    try {
-                      await _databaseHelper.updateUser(updateUser);
-                      await userFormProvider.saveSession(updateUser);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('User updated successfully!')),
-                      );
-                      userFormProvider.clearImagePath();
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const HomeScreen(),
-                        ),
-                        (route) => false,
-                      );
-                    } catch (e) {
-                      print("Update failed: $e");
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Failed to update user: $e')),
-                      );
-                    }
                   }
                 },
                 borderRadius: BorderRadius.circular(5),
