@@ -16,3 +16,7 @@ sqlquery
 
 theme
 adb shell "cmd uimode night yes"
+
+clear user data
+
+adb shell pm clear <packagename>
