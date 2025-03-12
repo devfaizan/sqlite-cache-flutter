@@ -8,7 +8,6 @@ import 'package:sqlsqlsql/widgets/form/formtop.dart';
 import 'package:sqlsqlsql/widgets/inputdrop.dart';
 import 'package:sqlsqlsql/widgets/inputwidget.dart';
 import 'package:sqlsqlsql/widgets/primarybutton.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:sqlsqlsql/provider/userformprovider.dart';
 
