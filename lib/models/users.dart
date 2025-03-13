@@ -58,3 +58,40 @@ class User {
     );
   }
 }
+
+class UpdateUser extends User {
+  UpdateUser({
+    required int id,
+    required String email,
+    String? name,
+    String? image,
+  }) : super(
+          id: id,
+
+          // ID is not required for update
+
+          email: email,
+
+          // Email is not required for update
+
+          name: name!,
+
+          password: '',
+
+          // Password is not required for update
+
+          image: image!,
+        );
+
+  // Override the toMap method to only include name and image
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'user_id': id,
+      'user_email': email,
+      'user_name': name,
+      'user_image': image,
+    };
+  }
+}
