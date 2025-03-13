@@ -192,20 +192,12 @@ class UserFormProvider extends ChangeNotifier {
     required DatabaseHelper databaseHelper,
     required BuildContext context,
   }) async {
-    if (user.name.isEmpty || _imagePath.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Name and Image are required')),
-      );
-      return;
-    }
-
     setLoading(true);
     try {
-      final updatedUser = User(
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        password: user.password,
+      final updatedUser = UpdateUser(
+        id: user.id!,
+        email: currentUser!.email,
+        name:  user.name,
         image: _imagePath.isNotEmpty ? _imagePath : user.image,
       );
 
