@@ -142,11 +142,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       );
                       return;
                     }
-                    final updatedUser = User(
-                      id: widget.user!.id,
-                      email: widget.user!.email,
+                    final updatedUser = UpdateUser(
+                      id: widget.user!.id!,
+                      email: currentUser!.email,
                       name: name,
-                      password: widget.user!.password,
                       image: imagePath ?? widget.user!.image,
                     );
                     await userFormProvider.updateUser(
@@ -159,9 +158,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       MaterialPageRoute(
                         builder: (context) => const HomeScreen(),
                       ),
-                          (route) => false,
+                      (route) => false,
                     );
-
                   }
                 },
                 borderRadius: BorderRadius.circular(5),
