@@ -27,13 +27,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController nameController = TextEditingController();
   final DatabaseHelper _databaseHelper = DatabaseHelper.instance;
   final _key = GlobalKey<FormState>();
-  String? imagePath;
 
   @override
   void initState() {
     super.initState();
     nameController = TextEditingController(text: widget.user?.name ?? '');
-    imagePath = widget.user?.image;
   }
 
   @override
@@ -134,6 +132,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 onPressed: () async {
                   if (_key.currentState!.validate()) {
                     final name = nameController.text.trim();
+                    final newImagePath = userFormProvider.imagePath;
+
+                    if (name == widget.user?.name &&
+                        (newImagePath.isEmpty ||
+                            newImagePath == widget.user?.image)) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('No changes were made'),
+                        ),
+                      );
+                      return;
+                    }
+
                     if (name.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -142,17 +153,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       );
                       return;
                     }
+
                     final updatedUser = UpdateUser(
                       id: widget.user!.id!,
                       email: currentUser!.email,
                       name: name,
-                      image: imagePath ?? widget.user!.image,
+                      image: newImagePath.isNotEmpty
+                          ? newImagePath
+                          : widget.user!.image,
                     );
+
                     await userFormProvider.updateUser(
                       user: updatedUser,
                       databaseHelper: _databaseHelper,
                       context: context,
                     );
+
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
