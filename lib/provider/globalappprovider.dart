@@ -14,7 +14,6 @@ class AppProvider extends ChangeNotifier {
     print("from app proivider");
     notifyListeners();
   }
-  
 
   void setSelectedValue(String? newValue) {
     _selectedValue = newValue;
