@@ -11,6 +11,7 @@ class PetProvider extends ChangeNotifier {
   bool _isExpanded = false;
   Pet? _favoritePet;
   Pet? _updatedPet;
+  List<Pet> _petList = [];
 
   // Map<String, List<Pet>> _petsByType = {}; // Holds pets grouped by type
   List<Pet> _catsOfSingleType = [];
@@ -27,6 +28,8 @@ class PetProvider extends ChangeNotifier {
   Pet? get favoritePet => _favoritePet;
 
   Pet? get updatedPet => _updatedPet;
+
+  List<Pet> get petList => _petList;
 
   // Map<String, List<Pet>> get petsByType => _petsByType;
   List<Pet> get catsOfSingleType => _catsOfSingleType;
@@ -56,6 +59,11 @@ class PetProvider extends ChangeNotifier {
 
   void setLoading(bool value) {
     _isLoading = value;
+    notifyListeners();
+  }
+
+  void setPetList(List<Pet> pets) {
+    _petList = pets;
     notifyListeners();
   }
 
