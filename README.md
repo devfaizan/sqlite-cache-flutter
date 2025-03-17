@@ -2,7 +2,7 @@
 A small pet app that stores your pet info into local sqlite DB. The purpose of this app was to showcase my skills around cache, provider state managment and session handling using shared preferences.
 This is offline first app means that user data is only stored on thier device and app cannot connect to the internet.
 
-## Lifecycle for V 1.0
+## Lifecycle for v1.0
   - ### Authentication
     First offline account is created by user. At account creation apps asks user for thier photo, email, name and password and all these fields should be valid. After that user have to login that account. if credentials match in DB then
     user is navigated to home screen and a session is created. A session doesn't expire on its own, its only do so when user logs out from app or clear app data.
