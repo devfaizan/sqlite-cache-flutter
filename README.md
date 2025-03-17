@@ -9,10 +9,12 @@ To store & get user, pets data for storage
     - pet are stored and feteched against currently logged in user
   - ### shared preferences
     - helps to maintain sessions
-## Theme Change
+## Theme and language change
   - theme setting like system, dark, light provided for app globally
+  - locale for Urdu (in 1.1)
 ## Provider
   - modifing app state from one place & handling important user & pet funtions.
+## Screens
 
 
 ### This apps uses AI-Generated code
