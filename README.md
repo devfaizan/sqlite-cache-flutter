@@ -7,7 +7,7 @@ This is offline first app means that user data is only stored on thier device an
     First offline account is created by user. At account creation apps asks user for thier photo, email, name and password and all these fields should be valid. After that user have to login that account. if credentials match in DB then
     user is navigated to home screen and a session is created. A session doesn't expire on its own, its only do so when user logs out from app or clear app data.
   - ### Adding a Pet
-    By click '+' button on bottom right of the home screen or top right of the allpets screen user can add a pet. App asks users for thier pet photo, name, tagline, age and type. After pet is added it shows on home screen and allpets
+    By clicking '+' button on bottom right of the home screen or top right of the allpets screen user can add a pet. App asks users for thier pet photo, name, tagline, age and type. After pet is added it shows on home screen and allpets
     screen.
   - ### Pet modification
     From Single Petview user can edit , make a pet their favorite. To delete a pet user has to long press on ListTile and then a popups shows which tells user to either delete or edit specfic pet.
@@ -57,5 +57,5 @@ To store & get user, pets data for storage
 ![13](https://github.com/user-attachments/assets/bea1f871-0204-48fa-a6d3-e7324285dbe2)
 
 
-### This apps uses AI-Generated code
+### This app uses AI-Generated code
 ![1735932185246](https://github.com/user-attachments/assets/b43b8e52-25fc-4bf8-84e9-1de2ae44b9f3)
