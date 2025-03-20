@@ -1,13 +1,13 @@
 # sqlsqlsql
 A small pet app that stores your pet info into local sqlite DB. The purpose of this app was to showcase my skills around cache, provider state managment and session handling using shared preferences.
-This is offline first app means that user data is only stored on thier device and app cannot connect to the internet.
+This is offline first app means that user data is only stored on their device and app cannot connect to the internet.
 
 ## Lifecycle for v1.0
   - ### Authentication
-    First offline account is created by user. At account creation apps asks user for thier photo, email, name and password and all these fields should be valid. After that user have to login that account. if credentials match in DB then
+    First offline account is created by user. At account creation apps asks user for their photo, email, name and password and all these fields should be valid. After that user have to login that account. if credentials match in DB then
     user is navigated to home screen and a session is created. A session doesn't expire on its own, its only do so when user logs out from app or clear app data.
   - ### Adding a Pet
-    By clicking '+' button on bottom right of the home screen or top right of the allpets screen user can add a pet. App asks users for thier pet photo, name, tagline, age and type. After pet is added it shows on home screen and allpets
+    By clicking '+' button on bottom right of the home screen or top right of the allpets screen user can add a pet. App asks users for their pet photo, name, tagline, age and type. After pet is added it shows on home screen and allpets
     screen.
   - ### Pet modification
     From Single Petview user can edit , make a pet their favorite. To delete a pet user has to long press on ListTile and then a popups shows which tells user to either delete or edit specfic pet.
