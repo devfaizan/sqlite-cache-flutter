@@ -4,7 +4,7 @@ This is offline first app means that user data is only stored on their device an
 
 ## Lifecycle for v1.0
   - ### Authentication
-    First offline account is created by user. At account creation apps asks user for their photo, email, name and password and all these fields should be valid. After that user have to login that account. if credentials match in DB then
+    First offline account is created by user. At account creation app asks user for their photo, email, name and password and all these fields should be valid. After that user have to login that account. if credentials match in DB then
     user is navigated to home screen and a session is created. A session doesn't expire on its own, its only do so when user logs out from app or clear app data.
   - ### Adding a Pet
     By clicking '+' button on bottom right of the home screen or top right of the allpets screen user can add a pet. App asks users for their pet photo, name, tagline, age and type. After pet is added it shows on home screen and allpets
