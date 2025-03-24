@@ -1,5 +1,5 @@
 # sqlsqlsql
-A small pet app that stores your pet info into local sqlite DB. The purpose of this app was to showcase my skills around cache, provider state managment and session handling using shared preferences.
+A small pet app that stores your pet info into local sqlite DB. The purpose of this app was to showcase my skills around cache, provider state management and session handling using shared preferences.
 This is offline first app means that user data is only stored on their device and app cannot connect to the internet.
 
 ## Lifecycle for v1.0
