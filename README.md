@@ -18,7 +18,7 @@ To store & get user, pets data for storage
   - ### sqlite
     - provides user table and a pet table
     - user data helps to authenticate them later
-    - pet are stored and feteched against currently logged in user
+    - pet are stored and fetched against currently logged in user
   - ### shared preferences
     - helps to maintain sessions
 ## Theme and language change
