@@ -1,4 +1,7 @@
 # sqlsqlsql
+
+![sqlite](https://github.com/user-attachments/assets/ad5c589d-8c73-42ff-9087-088ef3bdd086)
+
 A small pet app that stores your pet info into local sqlite DB. The purpose of this app was to showcase my skills around cache, provider state management and session handling using shared preferences.
 This is offline first app means that user data is only stored on their device and app cannot connect to the internet.
 
@@ -25,7 +28,7 @@ To store & get user, pets data for storage
   - theme setting like system, dark, light provided for app globally
   - locale for Urdu (in 1.1)
 ## Provider
-  - modifing app state from one place & handling important user & pet funtions.
+  - modifing app state from one place & handling important user & pet functions.
 ## Screens
 
 ![1](https://github.com/user-attachments/assets/9beb014e-e831-4773-bceb-eb38eeb9ba69)
