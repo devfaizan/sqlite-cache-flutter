@@ -1,6 +1,8 @@
 # sqlsqlsql
 
-![sqlite](https://github.com/user-attachments/assets/c4188bc4-0f67-4deb-af8e-a6c5e57151ba){: style="display: block; margin: 0 auto"}
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/c4188bc4-0f67-4deb-af8e-a6c5e57151ba" alt="sqlite" width="400"/>
+</div>
 
 A small pet app that stores your pet info into local sqlite DB. The purpose of this app was to showcase my skills around cache, provider state management and session handling using shared preferences.
 This is offline first app means that user data is only stored on their device and app cannot connect to the internet.
