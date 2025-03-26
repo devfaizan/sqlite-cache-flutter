@@ -15,7 +15,7 @@ This is offline first app means that user data is only stored on their device an
     By clicking '+' button on bottom right of the home screen or top right of the allpets screen user can add a pet. App asks users for their pet photo, name, tagline, age and type. After pet is added it shows on home screen and allpets
     screen.
   - ### Pet modification
-    From Single Petview user can edit , make a pet their favorite. To delete a pet user has to long press on ListTile and then a popups shows which tells user to either delete or edit specfic pet.
+    From Single Petview user can edit , make a pet their favorite. To delete a pet user has to long press on ListTile and then a popups shows which tells user to either delete or edit specific pet.
 
 ## Functions for v1.0
 ## Cache
@@ -30,7 +30,7 @@ To store & get user, pets data for storage
   - theme setting like system, dark, light provided for app globally
   - locale for Urdu (in 1.1)
 ## Provider
-  - modifing app state from one place & handling important user & pet functions.
+  - modifying app state from one place & handling important user & pet functions.
 ## Screens
 
 ![1](https://github.com/user-attachments/assets/9beb014e-e831-4773-bceb-eb38eeb9ba69)
